@@ -22,6 +22,7 @@ public class HelloController {
     @RequestMapping("query")
     @ResponseBody
     public User queryUserById(int id) {
-        return userService.queryUserById(id);
+        User user = userService.queryUserById(id);
+        return user;
     }
 }
