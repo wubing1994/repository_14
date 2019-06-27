@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.TechnologyMapper">
+
+    <sql id="baseColumns">
+        select
+          technology_id,
+          technology_name,
+          price,
+          vital_process_period,
+          standard_capacity,
+          overtime_standard_capacity,
+          overtime_overfulfil_capacity,
+          double_capacity,
+          overfulfil_capacity
+    </sql>
+
+    <!-- <sql id="page">
+         limit ${rows} offset (${page} - 1) * ${rows}
+     </sql>
+ -->
+    <resultMap id="technologypagelist" type="com.cskaoyan.bean.Technology">
+        <result column="technology_id" property="technologyId"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="price" property="price"/>
+        <result column="vital_process_period" property="vitalProcessPeriod"/>
+        <result column="standard_capacity" property="standardCapacity"/>
+        <result column="overtime_standard_capacity" property="overtimeStandardCapacity"/>
+        <result column="overtime_overfulfil_capacity" property="overtimeOverfulfilCapacity"/>
+        <result column="double_capacity" property="doubleCapacity"/>
+        <result column="overfulfil_capacity" property="overfulfilCapacity"/>
+    </resultMap>
+
+    <!--查询每页的设备种类数-->
+    <select id="queryTechnologyList" resultMap="technologypagelist">
+        <include refid="baseColumns"/>
+        from technology
+        <!--<include refid="page"/>-->
+    </select>
+
+    <insert id="insertTechnology">
+        insert into technology (technology_id,
+                                technology_name,
+                                price,
+                                vital_process_period,
+                                standard_capacity,
+                                overtime_standard_capacity,
+                                overtime_overfulfil_capacity,
+                                double_capacity,
+                                overfulfil_capacity) value (#{tech.technologyId},
+                                                            #{tech.technologyName},
+                                                            #{tech.price},
+                                                            #{tech.vitalProcessPeriod},
+                                                            #{tech.standardCapacity},
+                                                            #{tech.overtimeStandardCapacity},
+                                                            #{tech.overtimeOverfulfilCapacity},
+                                                            #{tech.doubleCapacity},
+                                                            #{tech.overfulfilCapacity})
+    </insert>
+
+    <update id="updateTechnology">
+        update technology set
+        technology_name =             #{tech.technologyName},
+        price =                       #{tech.price},
+        vital_process_period =        #{tech.vitalProcessPeriod},
+        standard_capacity =           #{tech.standardCapacity},
+        overtime_standard_capacity =  #{tech.overtimeStandardCapacity},
+        overtime_overfulfil_capacity =#{tech.overtimeOverfulfilCapacity},
+        double_capacity =             #{tech.doubleCapacity},
+        overfulfil_capacity =         #{tech.overfulfilCapacity}
+
+        where technology_id =         #{tech.technologyId}
+    </update>
+    
+    <delete id="deleteTechnology">
+        delete from technology where technology_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="searchTechById" resultMap="technologypagelist">
+        <include refid="baseColumns"/>
+        from technology where technology_id=#{id}
+    </select>
+
+    <select id="searchTechByName" resultMap="technologypagelist">
+        <include refid="baseColumns"/>
+        from technology where technology_name=#{name}
+    </select>
+
+</mapper>
