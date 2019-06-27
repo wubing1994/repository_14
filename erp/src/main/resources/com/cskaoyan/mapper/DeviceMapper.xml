@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.DeviceMapper">
+
+    <resultMap id="deviceMap" type="com.cskaoyan.bean.Device">
+        <result column="device_id"              property="deviceId"/>
+        <result column="device_name"            property="deviceName"/>
+        <result column="device_type_name"         property="deviceTypeName"/>
+        <result column="device_status_id"       property="deviceStatusId"/>
+        <result column="device_status"          property="deviceStatus"/>
+        <result column="device_purchase_date"   property="devicePurchaseDate"/>
+        <result column="device_purchase_price"  property="devicePurchasePrice"/>
+        <result column="device_manufacture_date" property="deviceManufactureDate"/>
+        <result column="device_service_life"    property="deviceServiceLife"/>
+        <result column="emp_name"       property="deviceKeeper"/>
+    </resultMap>
+
+    <!--查询所有记录-->
+    <select id="queryAllDevices" resultMap="deviceMap">
+        select
+          device_id,
+          device_name,
+          device_status_id,
+          device_status,
+          device_purchase_date,
+          device_purchase_price,
+          device_manufacture_date,
+          device_service_life,
+          device.note,
+
+          device_type_name,
+
+          employee.emp_name,
+
+          department_name
+
+        from device
+          left join device_type on device.device_type_id = device_type.device_type_id
+          left join employee on device.device_keeper_id = employee.emp_id
+          left join department on employee.department_id = department.department_id
+
+    </select>
+
+</mapper>

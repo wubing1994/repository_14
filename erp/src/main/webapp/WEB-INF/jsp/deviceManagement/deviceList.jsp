@@ -7,7 +7,7 @@
 <!-- Table -->
 <table class="easyui-datagrid" id="deviceList" title="设备列表" 
        data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,
-       	url:'deviceList/list',method:'get',pageSize:30, fitColumns:true,toolbar:toolbar_device">
+       	url:'deviceList/list',method:'get',pageSize:10, fitColumns:true,toolbar:toolbar_device">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true">
@@ -27,7 +27,9 @@
             <th data-options="field:'devicePurchaseDate',width:130,align:'center',formatter:TAOTAO.formatDateTime">
 				购买日期
 			</th>
-            <th data-options="field:'devicePurchasePrice',width:80,align:'center'">购买价格</th>
+            <th data-options="field:'devicePurchasePrice',width:80,align:'center'">
+				购买价格
+			</th>
             <th data-options="field:'deviceManufactureDate',width:130,align:'center',formatter:TAOTAO.formatDateTime">
 				出厂日期
 			</th>
@@ -37,15 +39,16 @@
             <th data-options="field:'deviceKeeper',width:100,align:'center',formatter:formatDeviceKeeper_deviceList">
 				保管人
 			</th>
-            <th data-options="field:'note',width:100,align:'center',formatter:formatDeviceNote">备注</th>
+            <th data-options="field:'note',width:100,align:'center',formatter:formatDeviceNote">
+				备注
+			</th>
         </tr>
     </thead>
 </table>
 
 <!-- Toolbar -->
-<div  id="toolbar_device" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
-	
-	<c:forEach items="${sessionScope.sysPermissionList}" var="per" > 
+<div id="toolbar_device" style=" height: 22px; padding: 3px 11px; background: #fafafa;">
+	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
 		<c:if test="${per=='device:add'}">
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="device_add()">新增</a>  
@@ -63,8 +66,8 @@
 		</c:if>
 	</c:forEach>
 	
-	<div class="datagrid-btn-separator"></div>  
-	
+	<div class="datagrid-btn-separator"></div>
+
 	<div style="float: left;">  
 		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-reload" onclick="device_reload()">刷新</a>  
 	</div>  
@@ -79,8 +82,7 @@
 			<div data-options="name:'deviceName'">设备名称</div>
 			<div data-options="name:'deviceTypeName'">设备种类名称</div>
 		</div>     
-    </div>  
-
+    </div>
 </div>
 
 <!-- deviceAddWindow -->
@@ -156,8 +158,7 @@
 	        <tr>
 	            <td>所属部门:</td>
 	            <td>
-	            	<input class="easyui-combobox" name="departmentId" panelHeight="auto"
-    					data-options="valueField:'departmentId',textField:'departmentName',url:'department/get_data'" />
+	            	<input class="easyui-combobox" name="departmentId" panelHeight="auto" data-options="valueField:'departmentId',textField:'departmentName',url:'department/get_data'" />
     			</td> 
 	        </tr>
 	        <tr>
@@ -200,8 +201,7 @@
 </div>
 
 <!-- 设备备注信息-->
-<div id="deviceNoteDialog" class="easyui-dialog" title="备注" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save'" style="width:55%;height:65%;padding:10px;">
+<div id="deviceNoteDialog" class="easyui-dialog" title="备注" data-options="modal:true,closed:true,resizable:true,iconCls:'icon-save'" style="width:55%;height:65%;padding:10px;">
 	<form id="deviceNoteForm" class="itemForm" method="post">
 		<input type="hidden" name="deviceId"/>
 	    <table cellpadding="5" >
@@ -229,21 +229,15 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
 				{field : 'ck', checkbox:true },
 				{field : 'deviceId', width : 100, align:'center', title : '设备编号'},
 				{field : 'deviceName', width : 100, align : 'center', title : '设备名称'},
-				{field : 'deviceTypeName', width : 100, align : 'center', title : '设备种类',
-					formatter:formatDeviceType_deviceList},
-				{field : 'deviceStatusId', width : 100, title : '设备状态', align:'center',
-					formatter:TAOTAO.formatDeviceStatus},
-				{field : 'devicePurchaseDate', width : 130, title : '购买日期', align:'center',
-					formatter:TAOTAO.formatDateTime},
+				{field : 'deviceTypeName', width : 100, title : '设备种类', align : 'center', formatter:formatDeviceType_deviceList},
+				{field : 'deviceStatusId', width : 100, title : '设备状态', align : 'center', formatter:TAOTAO.formatDeviceStatus},
+				{field : 'devicePurchaseDate', width : 130, title : '购买日期', align :'center', formatter:TAOTAO.formatDateTime},
 				{field : 'devicePurchasePrice', width : 80, title : '购买价格', align:'center'},
-				{field : 'deviceManufactureDate', width : 130, title : '出厂日期', align:'center',
-					formatter:TAOTAO.formatDateTime},
-				{field : 'deviceServiceLife', width : 130, title : '使用年限', align:'center',
-					formatter:TAOTAO.formatDate},
-				{field : 'deviceKeeper', width : 100, title : '保管人', align:'center',
-					formatter:formatDeviceKeeper_deviceList},
+				{field : 'deviceManufactureDate', width : 130, title : '出厂日期', align:'center', formatter:TAOTAO.formatDateTime},
+				{field : 'deviceServiceLife', width : 130, title : '使用年限', align:'center', formatter:TAOTAO.formatDate},
+				{field : 'deviceKeeper', width : 100, title : '保管人', align:'center',	formatter:formatDeviceKeeper_deviceList},
 				{field : 'note', width : 100, title : '备注', align:'center', formatter:formatDeviceNote}
-	        ] ],  
+	        ] ]
 	    });
 	}else{
 		$("#deviceList").datagrid({  
@@ -268,7 +262,7 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
 					{field : 'deviceKeeper', width : 100, title : '保管人', align:'center',
 						formatter:formatDeviceKeeper_deviceList},
 					{field : 'note', width : 100, title : '备注', align:'center', formatter:formatDeviceNote}
-	        ] ],  
+	        ] ]
 	    });
 	}
 }
@@ -375,7 +369,7 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
 		}else{
 			return "无";
 		}
-	};
+	}
 	/* DeviceType Relative Object */ 
 	
 	//打开设备种类对话框
@@ -390,7 +384,7 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
     	    	});
     		}
     	}).dialog("open");
-	};
+	}
 	
 	//提交设备种类信息
 	function submitDeviceTypeEditForm_deviceList(){
@@ -447,8 +441,8 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
 		}else{
 			return "无";
 		}
-	};
-	
+	}
+
 	//打开保管人信息对话框
 	function  openDeviceKeeper_deviceList(index){ 
 		var row = onDeviceClickRow(index);
@@ -464,7 +458,7 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
     	    	});
     		}
     	}).dialog("open");
-	};
+	}
 	
 	//提交设备保管人信息
 	function submitDeviceTypeEditForm_deviceList(){
@@ -513,7 +507,7 @@ function doSearch_device(value,name){ //用户输入用户名,点击搜素,触�
 			   	KindEditor.remove("#deviceNoteForm [name=note]");
 			}
 		}).dialog("open");
-	};
+	}
 	
 	function updateDeviceNote(){
 		$.get("deviceList/edit_judge",'',function(data){
