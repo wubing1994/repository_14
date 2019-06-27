@@ -28,4 +28,6 @@
         <property name="basePackage" value="com.cskaoyan.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+
+
 </beans>
