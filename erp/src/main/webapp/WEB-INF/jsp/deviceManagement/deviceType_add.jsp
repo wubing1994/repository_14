@@ -55,7 +55,7 @@
 	            </td>
 	        </tr>
 	    </table>
-	    <input type="hidden" name="deviceTypeParams"/>
+	    <%--<input type="hidden" name="deviceTypeParams"/>--%>
 	</form>
 	<div style="padding:5px">
 	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddForm_deviceType()">提交</a>

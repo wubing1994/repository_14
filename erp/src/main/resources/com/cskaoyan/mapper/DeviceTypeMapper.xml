@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.UserMapper">
+<mapper namespace="com.cskaoyan.mapper.DeviceTypeMapper">
+
+    <sql id="baseColumns">
+        select
+          device_type_id,
+          device_type_name,
+          device_type_model,
+          device_type_spec,
+          device_type_supplier,
+          device_type_producer,
+          device_type_quantity,
+          device_type_warranty
+    </sql>
+
+    <sql id="page">
+        limit ${rows} offset (${page} - 1) * ${rows}
+    </sql>
+
+    <resultMap id="deviceTypeMap" type="com.cskaoyan.bean.DeviceType">
+        <result column="device_type_id"         property="deviceTypeId"/>
+        <result column="device_type_name"       property="deviceTypeName"/>
+        <result column="device_type_model"      property="deviceTypeModel"/>
+        <result column="device_type_spec"       property="deviceTypeSpec"/>
+        <result column="device_type_supplier"   property="deviceTypeSupplier"/>
+        <result column="device_type_producer"   property="deviceTypeProducer"/>
+        <result column="device_type_quantity"   property="deviceTypeQuantity"/>
+        <result column="device_type_warranty"   property="deviceTypeWarranty"/>
+    </resultMap>
+
+    <!--查询每页的设备种类数-->
+    <select id="queryDeviceTypes" resultMap="deviceTypeMap">
+        <include refid="baseColumns"/>
+        from device_type
+        <include refid="page"/>
+    </select>
+
+    <!--查询所有设备种类信息-->
+    <select id="queryAllDeviceTypes" resultMap="deviceTypeMap">
+        <include refid="baseColumns"/>
+        from device_type
+    </select>
+
+    <!--根据id查询设备种类-->
+    <select id="queryDeviceTypeById" resultMap="deviceTypeMap">
+        <include refid="baseColumns"/>
+        from device_type
+        <where>
+            <if test="device_type_id != null">
+                device_type_id like "%"#{id}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--根据名称模糊查询-->
+    <select id="queryDeviceTypeByName" resultMap="deviceTypeMap">
+        <include refid="baseColumns"/>
+        from device_type
+        <where>
+            <if test="device_type_name != null">
+                device_type_name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--新增设备种类-->
+    <insert id="insertDeviceType">
+        insert into device_type (
+          device_type_name,
+          device_type_model,
+          device_type_spec,
+          device_type_supplier,
+          device_type_producer,
+          device_type_quantity,
+          device_type_warranty)
+        value (
+          #{deviceType.deviceTypeName},
+          #{deviceType.deviceTypeModel},
+          #{deviceType.deviceTypeSpec},
+          #{deviceType.deviceTypeSupplier},
+          #{deviceType.deviceTypeProducer},
+          #{deviceType.deviceTypeQuantity},
+          #{deviceType.deviceTypeWarranty} )
+    </insert>
+
+    <!--更新设备种类-->
+    <update id="updateDeviceType">
+        update device_type set
+          device_type_name =    #{deviceType.deviceTypeName},
+          device_type_model =   #{deviceType.deviceTypeModel},
+          device_type_spec =    #{deviceType.deviceTypeSpec},
+          device_type_supplier =#{deviceType.deviceTypeSupplier},
+          device_type_producer =#{deviceType.deviceTypeProducer},
+          device_type_quantity =#{deviceType.deviceTypeQuantity},
+          device_type_warranty =#{deviceType.deviceTypeWarranty}
+
+        where device_type_id = #{deviceType.deviceTypeId}
+    </update>
+
+    <!--批量删除-->
+    <delete id="deleteDeviceTypes">
+        delete from device_type
+        where device_type_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

@@ -23,8 +23,7 @@
 
 	<!-- North Title -->
 	<div class="divNorth" style="height:100px;" data-options="region:'north'" >
-		<table id="_TableHeader" width="100%" border="0" cellpadding="0"
-		cellspacing="0" class="bluebg">
+		<table id="_TableHeader" width="100%" border="0" cellpadding="0" cellspacing="0" class="bluebg">
 		<tbody>
 			<tr>
 				<td valign="top">
