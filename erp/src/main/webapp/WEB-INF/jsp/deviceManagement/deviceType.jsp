@@ -5,9 +5,9 @@
 <script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 
 <!-- Table -->
-<table class="easyui-datagrid" id="deviceType" title="设备种类列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,
-       	url:'deviceType/list',method:'get',pageSize:30, fitColumns:true,toolbar:toolbar_deviceType">
+<table class="easyui-datagrid" id="deviceType" title="设备种类列表"
+	   data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,
+       	url:'deviceType/list',method:'get',pageSize:10, fitColumns:true,toolbar:toolbar_deviceType">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
@@ -40,8 +40,7 @@
 </table>
 
 <!-- Toolbar -->
-<div  id="toolbar_deviceType" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
-	
+<div id="toolbar_deviceType" style=" height: 22px; padding: 3px 11px; background: #fafafa;">
 	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
 		<c:if test="${per=='deviceType:add'}">
 		    <div style="float: left;">  
@@ -73,16 +72,13 @@
 	</div>  
 	
     <div id="search_deviceType" style="float: right;">
-        <input id="search_text_deviceType" class="easyui-searchbox"  
-            data-options="searcher:doSearch_deviceType,prompt:'请输入...',menu:'#menu_deviceType'"  
-            style="width:250px;vertical-align: middle;">
-        </input>
+        <input id="search_text_deviceType" class="easyui-searchbox" style="width:250px;vertical-align: middle;"
+            data-options="searcher:doSearch_deviceType,prompt:'请输入...',menu:'#menu_deviceType'"/>
         <div id="menu_deviceType" style="width:120px"> 
 			<div data-options="name:'deviceTypeId'">设备种类编号</div> 
 			<div data-options="name:'deviceTypeName'">设备种类名称</div>
 		</div>     
-    </div>  
-
+    </div>
 </div>
 
 <!-- deviceTypeAddWindow -->
@@ -97,44 +93,44 @@
 
 
 <script>
-function doSearch_deviceType(value,name){ //用户输入用户名,点击搜素,触发此函数  
-	if(value == null || value == ''){
-		
-		$("#deviceType").datagrid({
-	        title:'设备种类列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
-			nowrap:true, toolbar:"toolbar_deviceType", url:'deviceType/list', method:'get', loadMsg:'数据加载中......',
-			fitColumns:true,//允许表格自动缩放,以适应父容器
-	        columns : [ [ 
-				{field : 'ck', checkbox:true },
-				{field : 'deviceTypeId', width : 100, align:'center', title : '设备种类编号'},
-				{field : 'deviceTypeName', width : 100, align : 'center', title : '设备种类名称'},
-				{field : 'deviceTypeModel', width : 100, align : 'center', title : '型号'},
-				{field : 'deviceTypeSpec', width : 100, title : '规格', align:'center'},
-				{field : 'deviceTypeSupplier', width : 120, title : '供应商', align:'center'},
-				{field : 'deviceTypeProducer', width : 120, title : '生产商', align:'center'},
-				{field : 'deviceTypeQuantity', width : 100, title : '台数', align:'center'},
-				{field : 'deviceTypeWarranty', width : 130, title : '保修期', align:'center',formatter:TAOTAO.formatDate}
-	        ] ],  
-	    });
-	}else{
-		$("#deviceType").datagrid({  
-	        title:'设备种类列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
-			nowrap:true, toolbar:"toolbar_deviceType", url:'deviceType/search_deviceType_by_'
-			+name+'?searchValue='+value, loadMsg:'数据加载中......', fitColumns:true,//允许表格自动缩放,以适应父容器
-	        columns : [ [ 
-				{field : 'ck', checkbox:true },
-				{field : 'deviceTypeId', width : 100, align:'center', title : '设备种类编号'},
-				{field : 'deviceTypeName', width : 100, align : 'center', title : '设备种类名称'},
-				{field : 'deviceTypeModel', width : 100, align : 'center', title : '型号'},
-				{field : 'deviceTypeSpec', width : 100, title : '规格', align:'center'},
-				{field : 'deviceTypeSupplier', width : 120, title : '供应商', align:'center'},
-				{field : 'deviceTypeProducer', width : 120, title : '生产商', align:'center'},
-				{field : 'deviceTypeQuantity', width : 100, title : '台数', align:'center'},
-				{field : 'deviceTypeWarranty', width : 130, title : '保修期', align:'center',formatter:TAOTAO.formatDate}
-	        ] ],  
-	    });
+	function doSearch_deviceType(value,name){ //用户输入用户名,点击搜素,触发此函数
+		if(value == null || value == ''){
+
+			$("#deviceType").datagrid({
+				title:'设备种类列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
+				nowrap:true, toolbar:"toolbar_deviceType", url:'deviceType/list', loadMsg:'数据加载中......',
+				fitColumns:true,//允许表格自动缩放,以适应父容器
+				columns : [ [
+					{field : 'ck', checkbox:true },
+					{field : 'deviceTypeId', width : 100, align:'center', title : '设备种类编号'},
+					{field : 'deviceTypeName', width : 100, align : 'center', title : '设备种类名称'},
+					{field : 'deviceTypeModel', width : 100, align : 'center', title : '型号'},
+					{field : 'deviceTypeSpec', width : 100, title : '规格', align:'center'},
+					{field : 'deviceTypeSupplier', width : 120, title : '供应商', align:'center'},
+					{field : 'deviceTypeProducer', width : 120, title : '生产商', align:'center'},
+					{field : 'deviceTypeQuantity', width : 100, title : '台数', align:'center'},
+					{field : 'deviceTypeWarranty', width : 130, title : '保修期', align:'center',formatter:TAOTAO.formatDate}
+				] ]
+			});
+		}else{
+			$("#deviceType").datagrid({
+				title:'设备种类列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
+				nowrap:true, toolbar:"toolbar_deviceType", url:'deviceType/search_deviceType_by_'
+				+name+'?searchValue='+value, loadMsg:'数据加载中......', fitColumns:true,//允许表格自动缩放,以适应父容器
+				columns : [ [
+					{field : 'ck', checkbox:true },
+					{field : 'deviceTypeId', width : 100, align:'center', title : '设备种类编号'},
+					{field : 'deviceTypeName', width : 100, align : 'center', title : '设备种类名称'},
+					{field : 'deviceTypeModel', width : 100, align : 'center', title : '型号'},
+					{field : 'deviceTypeSpec', width : 100, title : '规格', align:'center'},
+					{field : 'deviceTypeSupplier', width : 120, title : '供应商', align:'center'},
+					{field : 'deviceTypeProducer', width : 120, title : '生产商', align:'center'},
+					{field : 'deviceTypeQuantity', width : 100, title : '台数', align:'center'},
+					{field : 'deviceTypeWarranty', width : 130, title : '保修期', align:'center',formatter:TAOTAO.formatDate}
+				] ]
+			});
+		}
 	}
-}
 
 	/*********************************** Toolbar function ***********************************/
 	function getDeviceTypeSelectionsIds(){
@@ -221,6 +217,5 @@ function doSearch_deviceType(value,name){ //用户输入用户名,点击搜素,�
 	function onDeviceTypeClickRow(index) {
 		var rows = $('#deviceType').datagrid('getRows');
 		return rows[index];
-		
 	}
 </script>
