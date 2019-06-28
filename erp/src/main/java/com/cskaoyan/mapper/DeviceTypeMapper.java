@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.bean.Device;
 import com.cskaoyan.bean.DeviceType;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +18,9 @@ public interface DeviceTypeMapper {
 
     int deleteDeviceTypes(@Param("ids") String[] ids);
 
-    List<DeviceType> queryDeviceTypeById(@Param("id") String id);
+    DeviceType queryDeviceTypeById(@Param("id") String id);
+
+    List<DeviceType> queryDeviceTypeListById(@Param("id") String id);
 
     List<DeviceType> queryDeviceTypeByName(@Param("name") String name);
 }

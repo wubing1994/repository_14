@@ -6,14 +6,17 @@
     <resultMap id="deviceMap" type="com.cskaoyan.bean.Device">
         <result column="device_id"              property="deviceId"/>
         <result column="device_name"            property="deviceName"/>
-        <result column="device_type_name"         property="deviceTypeName"/>
+        <result column="device_type_id"         property="deviceTypeId"/>
+        <result column="device_type_name"       property="deviceTypeName"/>
         <result column="device_status_id"       property="deviceStatusId"/>
         <result column="device_status"          property="deviceStatus"/>
         <result column="device_purchase_date"   property="devicePurchaseDate"/>
         <result column="device_purchase_price"  property="devicePurchasePrice"/>
         <result column="device_manufacture_date" property="deviceManufactureDate"/>
         <result column="device_service_life"    property="deviceServiceLife"/>
+        <result column="emp_id"         property="deviceKeeperId"/>
         <result column="emp_name"       property="deviceKeeper"/>
+        <result column="note" property="note"/>
     </resultMap>
 
     <!--查询所有记录-->
@@ -21,6 +24,8 @@
         select
           device_id,
           device_name,
+          device.device_type_id,
+          device_type_name,
           device_status_id,
           device_status,
           device_purchase_date,
@@ -29,17 +34,12 @@
           device_service_life,
           device.note,
 
-          device_type_name,
-
-          employee.emp_name,
-
-          department_name
+          employee.emp_id,
+          employee.emp_name
 
         from device
           left join device_type on device.device_type_id = device_type.device_type_id
           left join employee on device.device_keeper_id = employee.emp_id
-          left join department on employee.department_id = department.department_id
-
     </select>
 
 </mapper>

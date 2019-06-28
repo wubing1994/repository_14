@@ -8,6 +8,8 @@ public class Device {
 
     private String deviceName;
 
+    private String deviceTypeId;
+
     private String deviceTypeName;
 
     private String deviceStatusId;
@@ -21,6 +23,8 @@ public class Device {
     private Date    deviceManufactureDate;
 
     private Date    deviceServiceLife;
+
+    private String deviceKeeperId;
 
     private String deviceKeeper;
 
@@ -40,6 +44,14 @@ public class Device {
 
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
+    }
+
+    public String getDeviceTypeId() {
+        return deviceTypeId;
+    }
+
+    public void setDeviceTypeId(String deviceTypeId) {
+        this.deviceTypeId = deviceTypeId;
     }
 
     public String getDeviceTypeName() {
@@ -96,6 +108,14 @@ public class Device {
 
     public void setDeviceServiceLife(Date deviceServiceLife) {
         this.deviceServiceLife = deviceServiceLife;
+    }
+
+    public String getDeviceKeeperId() {
+        return deviceKeeperId;
+    }
+
+    public void setDeviceKeeperId(String deviceKeeperId) {
+        this.deviceKeeperId = deviceKeeperId;
     }
 
     public String getDeviceKeeper() {

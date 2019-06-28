@@ -39,8 +39,13 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     }
 
     @Override
-    public List<DeviceType> queryDeviceTypeById(String id) {
+    public DeviceType queryDeviceTypeById(String id) {
         return deviceTypeMapper.queryDeviceTypeById(id);
+    }
+
+    @Override
+    public List<DeviceType> queryDeviceTypeListById(String id) {
+        return deviceTypeMapper.queryDeviceTypeListById(id);
     }
 
     @Override

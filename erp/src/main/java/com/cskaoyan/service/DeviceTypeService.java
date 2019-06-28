@@ -21,8 +21,10 @@ public interface DeviceTypeService {
     /*批量删除*/
     int deleteDeviceTypes(String[] ids);
 
+    /*根据id获取设备种类*/
+    DeviceType queryDeviceTypeById(String id);
     /*根据设备种类编号搜索*/
-    List<DeviceType> queryDeviceTypeById(String id);
+    List<DeviceType> queryDeviceTypeListById(String id);
 
     /*根据设备种类名称搜索*/
     List<DeviceType> queryDeviceTypeByName(String name);

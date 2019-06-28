@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +35,7 @@ public class DeviceTypeController {
     }
 
     //未知
-    @RequestMapping("deviceType/add_judge")
+    @RequestMapping("deviceType/*_judge")
     @ResponseBody
     public String add_judge() {
         return "";
@@ -67,11 +68,6 @@ public class DeviceTypeController {
         return responseVo;
     }
 
-
-    @RequestMapping("deviceType/edit_judge")
-    @ResponseBody
-    public String edit_judge() { return ""; }
-
     //进入编辑页面
     @RequestMapping("deviceType/edit")
     public String edit() {
@@ -79,7 +75,7 @@ public class DeviceTypeController {
     }
 
     //更新设备种类
-    @RequestMapping("deviceType/update")
+    @RequestMapping("deviceType/update*")
     @ResponseBody
     public ResponseVo updateDeviceType(@Valid DeviceType deviceType, BindingResult bindingResult){
         ResponseVo responseVo = new ResponseVo();
@@ -97,13 +93,6 @@ public class DeviceTypeController {
         responseVo.setMsg("OK");
         responseVo.setData(null);
         return responseVo;
-    }
-
-    //
-    @RequestMapping("deviceType/delete_judge")
-    @ResponseBody
-    public String delete_judge() {
-        return "";
     }
 
     /*删除选中的记录*/
@@ -131,7 +120,7 @@ public class DeviceTypeController {
     @RequestMapping("deviceType/search_deviceType_by_deviceTypeId")
     @ResponseBody
     public List<DeviceType> queryDeviceTypeById(String searchValue, int page, int rows) {
-        List<DeviceType> deviceTypes = deviceTypeService.queryDeviceTypeById(searchValue);
+        List<DeviceType> deviceTypes = deviceTypeService.queryDeviceTypeListById(searchValue);
         return deviceTypes;
     }
 
@@ -144,4 +133,19 @@ public class DeviceTypeController {
     }
 
 
+    /*根据id查询设备种类*/
+    @RequestMapping("deviceType/get/{id}")
+    @ResponseBody
+    public DeviceType queryDeviceTypeById(@PathVariable("id") String id) {
+        DeviceType deviceType = deviceTypeService.queryDeviceTypeById(id);
+        return deviceType;
+    }
+
+    /*获取所有设备种类*/
+    @RequestMapping("deviceType/get_data")
+    @ResponseBody
+    public List<DeviceType> queryAllDeviceTypes() {
+        List<DeviceType> deviceTypes = deviceTypeService.queryAllDeviceTypes();
+        return deviceTypes;
+    }
 }
