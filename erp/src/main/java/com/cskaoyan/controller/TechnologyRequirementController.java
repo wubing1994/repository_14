@@ -6,6 +6,7 @@ import com.cskaoyan.bean.VO.ResponseVo;
 import com.cskaoyan.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,9 +39,9 @@ public class TechnologyRequirementController {
 
     @RequestMapping("technologyRequirement/list")
     @ResponseBody
-    public List<Technology> queryTechnologyList(int page, int rows){
-        List<Technology> technologyList = technologyService.queryTechnologyRequList();
-        return  technologyList;
+    public List<TechnologyRequirement> queryTechnologyList(int page, int rows){
+        List<TechnologyRequirement> technologyRequirementList = technologyService.queryTechnologyRequList();
+        return  technologyRequirementList;
     }
 
     @RequestMapping("technologyRequirement/add_judge")
@@ -71,6 +72,13 @@ public class TechnologyRequirementController {
         return  technologyList;
     }
 
+    @RequestMapping("technology/get/{id}")
+    @ResponseBody
+    public Technology getTechnologyById(@PathVariable("id") String TechnologyId){
+        Technology technology = technologyService.queryTechnologyById(TechnologyId);
+        return technology;
+    }
+
     @RequestMapping("technologyRequirement/edit_judge")
     @ResponseBody
     public String edittechnologyRequirement(){
@@ -84,6 +92,16 @@ public class TechnologyRequirementController {
     @ResponseBody
     public ResponseVo upadateRequ( TechnologyRequirement technologyRequirement){
         int i = technologyService.updateRequ(technologyRequirement);
+        ResponseVo responseVo =new ResponseVo();
+        responseVo.setStatus(200);
+        responseVo.setMsg("OK");
+        responseVo.setData(null);
+        return responseVo;
+    }
+
+    @RequestMapping("technologyRequirement/update_requirement")
+    @ResponseBody
+    public ResponseVo updarequ(){
         ResponseVo responseVo =new ResponseVo();
         responseVo.setStatus(200);
         responseVo.setMsg("OK");

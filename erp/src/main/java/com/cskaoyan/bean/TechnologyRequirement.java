@@ -10,16 +10,26 @@ import java.util.Date;
 public class TechnologyRequirement {
     private String technologyRequirementId;
     private String technologyName;
+    private String technologyId;
     private String requirement;
     private Date addTime;
     private Date reviseTime;
 
+    public String getTechnologyId() {
+        return technologyId;
+    }
+
+    public void setTechnologyId(String technologyId) {
+        this.technologyId = technologyId;
+    }
+
     public TechnologyRequirement() {
     }
 
-    public TechnologyRequirement(String technologyRequirementId, String technologyName, String requirement, Date addTime, Date reviseTime) {
+    public TechnologyRequirement(String technologyRequirementId, String technologyName, String technologyId, String requirement, Date addTime, Date reviseTime) {
         this.technologyRequirementId = technologyRequirementId;
         this.technologyName = technologyName;
+        this.technologyId = technologyId;
         this.requirement = requirement;
         this.addTime = addTime;
         this.reviseTime = reviseTime;

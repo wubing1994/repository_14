@@ -27,7 +27,7 @@ public interface TechnologyMapper {
 
     List<Technology> searchTechByName(@Param("name") String searchValue);
 
-    List<Technology> queryTechnologyRequList();
+    List<TechnologyRequirement> queryTechnologyRequList();
 
     int insertRequ(@Param("techRequ") TechnologyRequirement technologyRequirement);
 
@@ -62,4 +62,8 @@ public interface TechnologyMapper {
     List<Process> searchProcessById(@Param("id") String searchValue);
 
     List<Process> searchProcessByName(@Param("name") String searchValue);
+
+    Technology queryTechnologyById(@Param("id") String technologyId);
+
+    TechnologyPlan queryTechnologyPlanById(@Param("id") String technologyPlanId);
 }

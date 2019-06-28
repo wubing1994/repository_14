@@ -52,7 +52,7 @@ public class TechnologyServiceImpl implements TechnologyService {
     }
 
     @Override
-    public List<Technology> queryTechnologyRequList() {
+    public List<TechnologyRequirement> queryTechnologyRequList() {
         return technologyMapper.queryTechnologyRequList();
     }
 
@@ -139,6 +139,16 @@ public class TechnologyServiceImpl implements TechnologyService {
     @Override
     public List<Process> searchProcessByName(String searchValue) {
         return technologyMapper.searchProcessByName(searchValue);
+    }
+
+    @Override
+    public Technology queryTechnologyById(String technologyId) {
+        return technologyMapper.queryTechnologyById(technologyId);
+    }
+
+    @Override
+    public TechnologyPlan queryTechnologyPlanById(String technologyPlanId) {
+        return technologyMapper.queryTechnologyPlanById(technologyPlanId);
     }
 
 

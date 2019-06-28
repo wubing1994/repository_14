@@ -7,6 +7,7 @@ import com.cskaoyan.bean.VO.ResponseVo;
 import com.cskaoyan.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -110,6 +111,13 @@ public class ProcessController {
         responseVo.setMsg("OK");
         responseVo.setData(null);
         return responseVo;
+    }
+
+    @RequestMapping("technologyPlan/get/{id}")
+    @ResponseBody
+    public TechnologyPlan getTechnologyById(@PathVariable("id") String TechnologyPlanId){
+        TechnologyPlan technologyPlan = technologyService.queryTechnologyPlanById(TechnologyPlanId);
+        return technologyPlan;
     }
 
     @RequestMapping("process/search_process_by_processId")

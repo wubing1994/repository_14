@@ -10,6 +10,7 @@ import java.util.Date;
 public class TechnologyPlan {
     private String technologyPlanId;
     private String technologyName;
+    private String technologyId;
     private int batchAmount;
     private Date startPlan;
     private Date endPlan;
@@ -17,6 +18,14 @@ public class TechnologyPlan {
     private Date technologyStartPlan;
     private Date  technologyEndPlan;
     public Process process;
+
+    public String getTechnologyId() {
+        return technologyId;
+    }
+
+    public void setTechnologyId(String technologyId) {
+        this.technologyId = technologyId;
+    }
 
     public TechnologyPlan() {
     }
