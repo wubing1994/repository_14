@@ -141,13 +141,13 @@
 </div>
 
 <!-- 设备故障原因-->
-<div id="deviceFaultDetailDialog" class="easyui-dialog" title="备注" data-options="modal:true,closed:true,
+<div id="deviceFaultDetailDialog" class="easyui-dialog" title="设备故障细节" data-options="modal:true,closed:true,
 		resizable:true,iconCls:'icon-save'" style="width:55%;height:65%;padding:10px;">
 	<form id="deviceFaultDetailForm" class="itemForm" method="post">
 	    <input type="hidden" name="deviceFaultId"/>
 	    <table cellpadding="5" >
 	        <tr>
-	            <td>例检结果:</td>
+	            <td>故障细节:</td>
 	            <td>
 	                <textarea style="width:800px;height:400px;visibility:hidden;" name="deviceFaultDetail"></textarea>
 	            </td>
@@ -388,13 +388,13 @@ function doSearch_deviceFault(value,name){ //用户输入用户名,点击搜素,
     			$.messager.alert('提示', data.msg);
     		}else{
     			deviceFaultNoteEditor.sync();
-    			$.post("deviceFault/update_note",$("#deviceFaultDetailForm").serialize(), function(data){
+    			$.post("deviceFault/update_device_fault_detail",$("#deviceFaultDetailForm").serialize(), function(data){
     				if(data.status == 200){
     					$("#deviceFaultDetailDialog").dialog("close");
     					$("#deviceFault").datagrid("reload");
-    					$.messager.alert("操作提示", "更新设备故障原因成功！");
+    					$.messager.alert("操作提示", "更新设备故障细节成功！");
     				}else{
-    					$.messager.alert("操作提示", "更新设备故障原因失败！","error");
+    					$.messager.alert("操作提示", "更新设备故障细节失败！","error");
     				}
     			});
     		}

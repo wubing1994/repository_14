@@ -25,6 +25,7 @@
           device_fault_maintenance
         from device_fault
           left join device on device_fault.device_id = device.device_id
+        order by device_fault_id
     </select>
 
     <!--添加-->
@@ -65,5 +66,12 @@
             #{id}
         </foreach>
     </delete>
+
+    <!--根据id 更新设备故障细节-->
+    <update id="updateDeviceFaultDetailById">
+        update device_fault
+        set device_fault_detail = #{detail}
+        where device_fault_id = #{id}
+    </update>
 
 </mapper>

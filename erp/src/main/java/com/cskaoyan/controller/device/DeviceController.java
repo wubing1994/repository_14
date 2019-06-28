@@ -86,7 +86,7 @@ public class DeviceController {
     }
 
     //更新设备
-    @RequestMapping("deviceList/update")
+    @RequestMapping("deviceList/update*")
     @ResponseBody
     public ResponseVo updateDevice(@Valid Device device, BindingResult bindingResult) {
         ResponseVo responseVo = new ResponseVo();
@@ -99,6 +99,18 @@ public class DeviceController {
             responseVo.setMessage(defaultMessage);
             return responseVo;
         }*/
+
+        String deviceStatusId = device.getDeviceStatusId();
+        if ("1".equals(deviceStatusId)) {
+            device.setDeviceStatus("良好");
+        } else if ("2".equals(deviceStatusId)) {
+            device.setDeviceStatus("故障");
+        } else if ("3".equals(deviceStatusId)) {
+            device.setDeviceStatus("维修");
+        } else {
+            device.setDeviceStatus("报废");
+        }
+
         int ret = deviceService.updateDevice(device);
         responseVo.setStatus(200);
         responseVo.setMsg("OK");

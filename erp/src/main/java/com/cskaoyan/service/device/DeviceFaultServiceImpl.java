@@ -32,4 +32,9 @@ public class DeviceFaultServiceImpl implements DeviceFaultService {
     public int deleteDeviceFaults(String[] ids) {
         return deviceFaultMapper.deleteDeviceFaults(ids);
     }
+
+    @Override
+    public int updateDeviceFaultDetailById(String deviceFaultId, String deviceFaultDetail) {
+        return deviceFaultMapper.updateDeviceFaultDetailById(deviceFaultId, deviceFaultDetail);
+    }
 }

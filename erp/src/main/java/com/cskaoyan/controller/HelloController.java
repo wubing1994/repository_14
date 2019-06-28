@@ -37,6 +37,10 @@ public class HelloController {
         sysPermissionList.add("deviceFault:edit");
         sysPermissionList.add("deviceFault:delete");
 
+        sysPermissionList.add("deviceMaintain:add");
+        sysPermissionList.add("deviceMaintain:edit");
+        sysPermissionList.add("deviceMaintain:delete");
+
         request.getSession().setAttribute("sysPermissionList", sysPermissionList);
         return "home";
     }

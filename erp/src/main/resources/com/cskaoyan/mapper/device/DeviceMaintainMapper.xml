@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.device.DeviceMaintainMapper">
+
+    <resultMap id="deviceMaintainMap" type="com.cskaoyan.bean.device.DeviceMaintain">
+        <result column="device_maintain_id"     property="deviceMaintainId"/>
+        <result column="device_fault_id"        property="deviceFaultId"/>
+        <result column="device_maintain_emp_id" property="deviceMaintainEmpId"/>
+        <result column="emp_name"               property="deviceMaintainEmp"/>
+        <result column="device_maintain_date"   property="deviceMaintainDate"/>
+        <result column="device_maintain_result" property="deviceMaintainResult"/>
+        <result column="device_maintain_cost"   property="deviceMaintainCost"/>
+        <result column="note"                   property="note"/>
+    </resultMap>
+
+    <!--查询所有记录-->
+    <select id="queryAllDeviceMaintains" resultMap="deviceMaintainMap">
+        select
+          device_maintain_id,
+          device_fault_id,
+          device_maintain_emp_id,
+          emp_name,
+          device_maintain_date,
+          device_maintain_result,
+          device_maintain_cost,
+          note
+        from device_maintain
+        left join employee on device_maintain.device_maintain_emp_id = employee.emp_id
+        order by device_maintain_id
+    </select>
+
+    <!--添加-->
+    <insert id="insertDeviceMaintain">
+        insert into device_maintain(
+          device_maintain_id,
+          device_fault_id,
+          device_maintain_emp_id,
+          device_maintain_date,
+          device_maintain_result,
+          device_maintain_cost,
+          note
+        ) value (
+          #{deviceMaintain.deviceMaintainId},
+          #{deviceMaintain.deviceFaultId},
+          #{deviceMaintain.deviceMaintainEmpId},
+          #{deviceMaintain.deviceMaintainDate},
+          #{deviceMaintain.deviceMaintainResult},
+          #{deviceMaintain.deviceMaintainCost},
+          #{deviceMaintain.note}
+    </insert>
+
+    <!--更新-->
+    <update id="updateDeviceMaintain">
+        update device_maintain set
+          device_fault_id        = #{deviceMaintain.deviceFaultId},
+          device_maintain_emp_id = #{deviceMaintain.deviceMaintainEmpId},
+          device_maintain_date   = #{deviceMaintain.deviceMaintainDate},
+          device_maintain_result = #{deviceMaintain.deviceMaintainResult},
+          device_maintain_cost   = #{deviceMaintain.deviceMaintainCost},
+          note                   = #{deviceMaintain.note}
+        where device_maintain_id = #{deviceMaintain.deviceMaintainId}
+    </update>
+
+    <!--删除-->
+    <delete id="deleteDeviceMaintains">
+        delete from device_maintain
+        where device_maintain_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

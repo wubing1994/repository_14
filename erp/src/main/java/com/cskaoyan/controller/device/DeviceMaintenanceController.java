@@ -1,8 +1,8 @@
 package com.cskaoyan.controller.device;
 
-import com.cskaoyan.bean.device.DeviceFault;
 import com.cskaoyan.bean.VO.ResponseVo;
-import com.cskaoyan.service.device.DeviceFaultService;
+import com.cskaoyan.bean.device.DeviceMaintain;
+import com.cskaoyan.service.device.DeviceMaintainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,50 +13,42 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class DeviceFaultController {
+public class DeviceMaintenanceController {
 
     @Autowired
-    DeviceFaultService deviceFaultService;
+    private DeviceMaintainService deviceMaintainService;
 
     /*进入页面*/
-    @RequestMapping("device/deviceFault")
+    @RequestMapping("device/deviceMaintain")
     public String entry() {
-        return "deviceManagement/deviceFault";
+        return "deviceManagement/deviceMaintain";
     }
 
     /*获取列表数据*/
-    @RequestMapping("deviceFault/list")
+    @RequestMapping("deviceMaintain/list")
     @ResponseBody
-    public List<DeviceFault> queryDeviceFaults(int page, int rows) {
-        List<DeviceFault> deviceFaults = deviceFaultService.queryAllDeviceFaults();
-        return deviceFaults;
-    }
-
-    /*获取所有数据*/
-    @RequestMapping("deviceFault/get_data")
-    @ResponseBody
-    public List<DeviceFault> queryAllDeviceFaults() {
-        List<DeviceFault> deviceFaults = deviceFaultService.queryAllDeviceFaults();
-        return deviceFaults;
+    public List<DeviceMaintain> queryDeviceMaintains(int page, int rows) {
+        List<DeviceMaintain> deviceMaintainList = deviceMaintainService.queryAllDeviceMaintains();
+        return deviceMaintainList;
     }
 
     //未知
-    @RequestMapping("deviceFault/*_judge")
+    @RequestMapping("deviceMaintain/*_judge")
     @ResponseBody
     public String judge() {
         return "";
     }
 
     //进入添加页面
-    @RequestMapping("deviceFault/add")
+    @RequestMapping("deviceMaintain/add")
     public String add() {
-        return "deviceManagement/deviceFault_add";
+        return "deviceManagement/deviceMaintain_add";
     }
 
-    //添加设备
-    @RequestMapping("deviceFault/insert")
+    //添加
+    @RequestMapping("deviceMaintain/insert")
     @ResponseBody
-    public ResponseVo insertDeviceType(@Valid DeviceFault deviceFault, BindingResult bindingResult){
+    public ResponseVo insertDeviceMaintain(@Valid DeviceMaintain deviceMaintain, BindingResult bindingResult){
         ResponseVo responseVo = new ResponseVo();
         /*if (bindingResult.hasErrors()){
             responseVo.setErrorNo(1);
@@ -67,8 +59,7 @@ public class DeviceFaultController {
             responseVo.setMessage(defaultMessage);
             return responseVo;
         }*/
-
-        int ret = deviceFaultService.insertDeviceFault(deviceFault);
+        int ret = deviceMaintainService.insertDeviceMaintain(deviceMaintain);
         responseVo.setStatus(200);
         responseVo.setMsg("OK");
         responseVo.setData(null);
@@ -76,15 +67,15 @@ public class DeviceFaultController {
     }
 
     //进入编辑页面
-    @RequestMapping("deviceFault/edit")
+    @RequestMapping("deviceMaintain/edit")
     public String edit() {
-        return "deviceManagement/deviceFault_edit";
+        return "deviceManagement/deviceMaintain_edit";
     }
 
     //更新
-    @RequestMapping("deviceFault/update")
+    @RequestMapping("deviceMaintain/update")
     @ResponseBody
-    public ResponseVo updateDeviceFault(@Valid DeviceFault deviceFault, BindingResult bindingResult) {
+    public ResponseVo updateDeviceMaintain(@Valid DeviceMaintain deviceMaintain, BindingResult bindingResult) {
         ResponseVo responseVo = new ResponseVo();
         /*if (bindingResult.hasErrors()){
             responseVo.setErrorNo(1);
@@ -95,7 +86,8 @@ public class DeviceFaultController {
             responseVo.setMessage(defaultMessage);
             return responseVo;
         }*/
-        int ret = deviceFaultService.updateDeviceFault(deviceFault);
+
+        int ret = deviceMaintainService.updateDeviceMaintain(deviceMaintain);
         responseVo.setStatus(200);
         responseVo.setMsg("OK");
         responseVo.setData(null);
@@ -103,26 +95,12 @@ public class DeviceFaultController {
     }
 
     /*删除选中的记录*/
-    @RequestMapping("deviceFault/delete_batch")
+    @RequestMapping("deviceMaintain/delete_batch")
     @ResponseBody
-    public ResponseVo deleteDeviceFaultTypes(String[] ids){
+    public ResponseVo deleteDeviceMaintains(String[] ids){
         ResponseVo responseVo = new ResponseVo();
 
-        int ret = deviceFaultService.deleteDeviceFaults(ids);
-        responseVo.setStatus(200);
-        responseVo.setMsg("OK");
-        responseVo.setData(null);
-        return responseVo;
-    }
-
-    /*更新故障描述*/
-    @RequestMapping("deviceFault/update_device_fault_detail")
-    @ResponseBody
-    public ResponseVo updateNote(String deviceFaultId, String deviceFaultDetail) {
-        ResponseVo responseVo = new ResponseVo();
-
-        int ret = deviceFaultService.updateDeviceFaultDetailById(deviceFaultId, deviceFaultDetail);
-
+        int ret = deviceMaintainService.deleteDeviceMaintains(ids);
         responseVo.setStatus(200);
         responseVo.setMsg("OK");
         responseVo.setData(null);

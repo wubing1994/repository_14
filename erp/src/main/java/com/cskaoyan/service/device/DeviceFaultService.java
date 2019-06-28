@@ -13,4 +13,6 @@ public interface DeviceFaultService {
     int updateDeviceFault(DeviceFault deviceFault);
 
     int deleteDeviceFaults(String[] ids);
+
+    int updateDeviceFaultDetailById(String deviceFaultId, String deviceFaultDetail);
 }

@@ -40,6 +40,7 @@
         from device
           left join device_type on device.device_type_id = device_type.device_type_id
           left join employee on device.device_keeper_id = employee.emp_id
+        order by device_id
     </select>
 
     <!--添加设备-->
@@ -73,18 +74,18 @@
 
     <!--更新设备信息-->
     <update id="updateDevice">
-        update device
-          set device_name = #{device.deviceName},
-          set device_type_id = #{device.deviceTypeId},
-          set device_status_id = #{device.deviceStatusId},
-          set device_status = #{device.deviceStatus},
-          set device_purchase_date = #{device.devicePurchaseDate},
-          set device_purchase_price = #{device.devicePurchasePrice},
-          set device_manufacture_date = #{device.deviceManufactureDate},
-          set device_service_life = #{device.deviceServiceLife},
-          set device_keeper_id = #{device.deviceKeeperId},
-          set not = #{device.note}
-        where device_id = #{device.device_id}
+        update device set
+          device_name = #{device.deviceName},
+          device_type_id = #{device.deviceTypeId},
+          device_status_id = #{device.deviceStatusId},
+          device_status = #{device.deviceStatus},
+          device_purchase_date = #{device.devicePurchaseDate},
+          device_purchase_price = #{device.devicePurchasePrice},
+          device_manufacture_date = #{device.deviceManufactureDate},
+          device_service_life = #{device.deviceServiceLife},
+          device_keeper_id = #{device.deviceKeeperId},
+          note = #{device.note}
+        where device_id = #{device.deviceId}
     </update>
 
     <!--删除设备-->
