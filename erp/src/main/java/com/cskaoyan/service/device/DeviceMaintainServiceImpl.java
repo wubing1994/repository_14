@@ -32,4 +32,9 @@ public class DeviceMaintainServiceImpl implements DeviceMaintainService {
     public int deleteDeviceMaintains(String[] ids) {
         return deviceMaintainMapper.deleteDeviceMaintains(ids);
     }
+
+    @Override
+    public int updateNoteById(String id, String note) {
+        return deviceMaintainMapper.updateNoteById(id, note);
+    }
 }

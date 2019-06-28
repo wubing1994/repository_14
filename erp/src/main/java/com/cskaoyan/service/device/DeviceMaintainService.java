@@ -13,4 +13,6 @@ public interface DeviceMaintainService {
     int updateDeviceMaintain(DeviceMaintain deviceMaintain);
 
     int deleteDeviceMaintains(String[] ids);
+
+    int updateNoteById(String id, String note);
 }
