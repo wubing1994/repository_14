@@ -15,4 +15,5 @@ public interface DeviceMaintainMapper {
 
     int deleteDeviceMaintains(@Param("ids") String[] ids);
 
+    int updateNoteById(@Param("id") String id, @Param("note") String note);
 }

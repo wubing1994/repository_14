@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +26,7 @@ public class ProcessController {
 
     /*进入列表页面*/
     @RequestMapping("process/find")
-    public String goIntoTechnology(HttpServletRequest request){
-        List<String> sysPermissionList = new ArrayList<>();
-        sysPermissionList.add("process:add");
-        sysPermissionList.add("process:edit");
-        sysPermissionList.add("process:delete");
-        request.getSession().setAttribute("sysPermissionList", sysPermissionList);
+    public String goIntoTechnology(){
         return "technologyManagement/process_list";
     }
     /*获取列表数据*/

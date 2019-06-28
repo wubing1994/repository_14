@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,12 +23,7 @@ public class TechnologyPlanController {
     TechnologyService technologyService;
 
     @RequestMapping("technologyPlan/find")
-    public String goIntoTechnologyPlan(HttpServletRequest request){
-        List<String> sysPermissionList = new ArrayList<>();
-        sysPermissionList.add("technologyPlan:add");
-        sysPermissionList.add("technologyPlan:edit");
-        sysPermissionList.add("technologyPlan:delete");
-        request.getSession().setAttribute("sysPermissionList", sysPermissionList);
+    public String goIntoTechnologyPlan(){
         return "technologyManagement/technologyPlan_list";
     }
 

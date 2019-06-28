@@ -5,12 +5,9 @@ import com.cskaoyan.bean.VO.ResponseVo;
 import com.cskaoyan.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,12 +23,7 @@ public class TechnologyController {
 
     /*进入列表页面*/
     @RequestMapping("technology/find")
-    public String goIntoTechnology(HttpServletRequest request){
-        List<String> sysPermissionList = new ArrayList<>();
-        sysPermissionList.add("technology:add");
-        sysPermissionList.add("technology:edit");
-        sysPermissionList.add("technology:delete");
-        request.getSession().setAttribute("sysPermissionList", sysPermissionList);
+    public String goIntoTechnology(){
         return "technologyManagement/technology_list";
     }
     /*获取列表数据*/

@@ -16,4 +16,6 @@ public interface DeviceFaultMapper {
     int deleteDeviceFaults(@Param("ids") String[] ids);
 
     int updateDeviceFaultDetailById(@Param("id") String deviceFaultId, @Param("detail") String deviceFaultDetail);
+
+    DeviceFault queryDeviceFaultById(@Param("id") String id);
 }
