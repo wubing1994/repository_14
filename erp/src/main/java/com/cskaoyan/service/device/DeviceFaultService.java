@@ -15,4 +15,6 @@ public interface DeviceFaultService {
     int deleteDeviceFaults(String[] ids);
 
     int updateDeviceFaultDetailById(String deviceFaultId, String deviceFaultDetail);
+
+    DeviceFault queryDeviceFaultById(String id);
 }

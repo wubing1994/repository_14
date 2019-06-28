@@ -71,5 +71,11 @@
         </foreach>
     </delete>
 
+    <!--根据id 更新备注-->
+    <update id="updateNoteById">
+        update device_maintain
+        set note = #{note}
+        where device_maintain_id = #{id}
+    </update>
 
 </mapper>

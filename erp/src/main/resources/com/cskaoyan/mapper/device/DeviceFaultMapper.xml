@@ -74,4 +74,17 @@
         where device_fault_id = #{id}
     </update>
 
+    <!--根据id获取记录-->
+    <select id="queryDeviceFaultById" resultMap="deviceFaultMap">
+        select
+          device_fault_id,
+          device_fault.device_id,
+          device_fault_cause,
+          device_fault_detail,
+          device_fault_date,
+          device_fault_maintenance
+        from device_fault
+        where device_fault_id = #{id}
+    </select>
+
 </mapper>

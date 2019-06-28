@@ -37,4 +37,9 @@ public class DeviceFaultServiceImpl implements DeviceFaultService {
     public int updateDeviceFaultDetailById(String deviceFaultId, String deviceFaultDetail) {
         return deviceFaultMapper.updateDeviceFaultDetailById(deviceFaultId, deviceFaultDetail);
     }
+
+    @Override
+    public DeviceFault queryDeviceFaultById(String id) {
+        return deviceFaultMapper.queryDeviceFaultById(id);
+    }
 }

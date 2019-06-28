@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class DeviceMaintenanceController {
+public class DeviceMaintainController {
 
     @Autowired
     private DeviceMaintainService deviceMaintainService;
@@ -101,6 +101,19 @@ public class DeviceMaintenanceController {
         ResponseVo responseVo = new ResponseVo();
 
         int ret = deviceMaintainService.deleteDeviceMaintains(ids);
+        responseVo.setStatus(200);
+        responseVo.setMsg("OK");
+        responseVo.setData(null);
+        return responseVo;
+    }
+
+    /*更新描述*/
+    @RequestMapping("deviceMaintain/update_note")
+    @ResponseBody
+    public ResponseVo updateNote(String deviceMaintainId, String note) {
+        ResponseVo responseVo = new ResponseVo();
+
+        int ret = deviceMaintainService.updateNoteById(deviceMaintainId, note);
         responseVo.setStatus(200);
         responseVo.setMsg("OK");
         responseVo.setData(null);
