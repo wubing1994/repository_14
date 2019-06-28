@@ -1,4 +1,4 @@
-package com.cskaoyan.bean;
+package com.cskaoyan.bean.device;
 
 import java.util.Date;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.DeviceTypeMapper">
+<mapper namespace="com.cskaoyan.mapper.device.DeviceTypeMapper">
 
     <sql id="baseColumns">
         select
@@ -19,7 +19,7 @@
         limit ${rows} offset (${page} - 1) * ${rows}
     </sql>
 
-    <resultMap id="deviceTypeMap" type="com.cskaoyan.bean.DeviceType">
+    <resultMap id="deviceTypeMap" type="com.cskaoyan.bean.device.DeviceType">
         <result column="device_type_id"         property="deviceTypeId"/>
         <result column="device_type_name"       property="deviceTypeName"/>
         <result column="device_type_model"      property="deviceTypeModel"/>

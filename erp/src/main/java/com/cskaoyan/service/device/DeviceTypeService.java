@@ -1,6 +1,6 @@
-package com.cskaoyan.service;
+package com.cskaoyan.service.device;
 
-import com.cskaoyan.bean.DeviceType;
+import com.cskaoyan.bean.device.DeviceType;
 
 import java.util.List;
 

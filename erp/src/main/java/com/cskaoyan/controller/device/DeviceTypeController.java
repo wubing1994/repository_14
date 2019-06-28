@@ -1,12 +1,11 @@
-package com.cskaoyan.controller;
+package com.cskaoyan.controller.device;
 
-import com.cskaoyan.bean.DeviceType;
+import com.cskaoyan.bean.device.DeviceType;
 import com.cskaoyan.bean.VO.ResponseVo;
-import com.cskaoyan.service.DeviceTypeService;
+import com.cskaoyan.service.device.DeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
