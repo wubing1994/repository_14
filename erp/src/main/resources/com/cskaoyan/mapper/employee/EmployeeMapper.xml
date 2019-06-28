@@ -1,7 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.Employee.EmployeeMapper">
-  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Employee.Employee">
+<mapper namespace="com.cskaoyan.mapper.employee.EmployeeMapper">
+
+  <select id="selectEmpNameById" resultType="string">
+    select emp_name from employee where emp_id=#{id}
+  </select>
+
+  <resultMap id="employeeMapLeft" type="employee">
+    <id column="emp_id" property="empId"/>
+    <result column="emp_name" property="empName"/>
+    <result column="sex" property="sex"/>
+    <result column="id_code" property="idCode"/>
+    <result column="birthday" property="birthday"/>
+    <result column="join_date" property="joinDate"/>
+    <result column="status" property="status"/>
+    <result column="education" property="education"/>
+    <result column="degree" property="education"/>
+    <result column="major" property="major"/>
+    <result column="graduate_school" property="graduateSchool"/>
+    <result column="education_form" property="educationForm"/>
+    <result column="department_id" property="departmentId"/>
+    <association property="department" javaType="department">
+      <result column="UID" property="departmentId"/>
+      <result column="department_Name" property="departmentName"/>
+      <result column="note" property="note"/>
+    </association>
+  </resultMap>
+
+  <select id="selectByDepartment" resultMap="employeeMapLeft">
+    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
+    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_id
+    as UID,u.department_Name,u.note
+    from employee d left join department u
+    on d.department_id=u.department_id
+    where u.department_Name like#{department}
+  </select>
+
+  <select id="queryById" resultMap="employeeMapLeft">
+    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
+    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
+    as UID,u.department_Name,u.note
+    from employee d left join department u
+    on d.department_id=u.dapartment_id
+    where d.emp_id=#{id}
+  </select>
+
+  <select id="queryByName" resultMap="employeeMapLeft">
+    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
+    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
+    as UID,u.department_Name,u.note from employee d left join department u
+    on d.department_id=u.dapartment_id
+    where d.emp_name like #{name}
+  </select>
+
+  <select id="selectEmployees" resultMap="employeeMapLeft">
+    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
+    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
+    as UID,u.department_Name,u.note from employee d left join department u
+    on d.department_id=u.dapartment_id
+  </select>
+
+  <select id="selectById" resultMap="employeeMapLeft">
+    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
+    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
+    as UID,u.department_Name,u.note from employee d left join department u
+    on d.department_id=u.dapartment_id
+    where d.emp_id=#{id}
+  </select>
+
+  <select id="countAll" resultType="int">
+    select count(*) from employee
+  </select>
+
+  <select id="selectAll" resultType="employee">
+    select*from employee
+  </select>
+
+
+  <resultMap id="BaseResultMap" type="com.cskaoyan.bean.employee.Employee">
     <id column="emp_id" jdbcType="VARCHAR" property="empId" />
     <result column="emp_name" jdbcType="VARCHAR" property="empName" />
     <result column="sex" jdbcType="CHAR" property="sex" />
@@ -78,7 +154,7 @@
     emp_id, emp_name, sex, id_code, birthday, join_date, status, education, degree, major, 
     graduate_school, education_form, department_id
   </sql>
-  <select id="selectByExample" parameterType="com.cskaoyan.bean.Employee.EmployeeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cskaoyan.bean.employee.EmployeeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -102,13 +178,13 @@
     delete from employee
     where emp_id = #{empId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.Employee.EmployeeExample">
+  <delete id="deleteByExample" parameterType="com.cskaoyan.bean.employee.EmployeeExample">
     delete from employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.bean.Employee.Employee">
+  <insert id="insert" parameterType="com.cskaoyan.bean.employee.Employee">
     insert into employee (emp_id, emp_name, sex, 
       id_code, birthday, join_date, 
       status, education, degree, 
@@ -120,7 +196,7 @@
       #{major,jdbcType=VARCHAR}, #{graduateSchool,jdbcType=VARCHAR}, #{educationForm,jdbcType=VARCHAR}, 
       #{departmentId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.cskaoyan.bean.Employee.Employee">
+  <insert id="insertSelective" parameterType="com.cskaoyan.bean.employee.Employee">
     insert into employee
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="empId != null">
@@ -205,7 +281,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cskaoyan.bean.Employee.EmployeeExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.cskaoyan.bean.employee.EmployeeExample" resultType="java.lang.Long">
     select count(*) from employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -277,7 +353,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.Employee.Employee">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.bean.employee.Employee">
     update employee
     <set>
       <if test="empName != null">
@@ -319,7 +395,7 @@
     </set>
     where emp_id = #{empId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.Employee.Employee">
+  <update id="updateByPrimaryKey" parameterType="com.cskaoyan.bean.employee.Employee">
     update employee
     set emp_name = #{empName,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},

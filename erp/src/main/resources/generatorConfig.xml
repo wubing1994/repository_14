@@ -97,8 +97,8 @@
                        selectByExampleQueryId="false"
                        domainObjectName="Department"
                > </table>-->
-                <table tableName="department" domainObjectName="Department"/>
-                <table tableName="employee" domainObjectName="Employee"/>
+                <table tableName="manufacture" domainObjectName="Manufacture"/>
+
 
 
         <!--      <table schema="" tableName="orders"></table>

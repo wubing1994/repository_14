@@ -1,7 +1,7 @@
-package com.cskaoyan.mapper.Employee;
+package com.cskaoyan.mapper.employee;
 
-import com.cskaoyan.bean.Employee.Employee;
-import com.cskaoyan.bean.Employee.EmployeeExample;
+import com.cskaoyan.bean.employee.Employee;
+import com.cskaoyan.bean.employee.EmployeeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +27,20 @@ public interface EmployeeMapper {
     int updateByPrimaryKeySelective(Employee record);
 
     int updateByPrimaryKey(Employee record);
+
+    int countAll();
+
+    List<Employee>selectByDepartment(@Param("department") String department);
+
+    List<Employee>queryById(@Param("id")String id);
+
+    List<Employee>queryByName(@Param("Name")String name);
+
+    List<Employee>selectEmployees();
+
+    List<Employee>selectAll();
+
+    Employee selectById(@Param("id")String id);
+
+    String selectEmpNameById(@Param("id")String id);
 }

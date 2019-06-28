@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -36,5 +37,11 @@ public class DepartmentController {
     public @ResponseBody
     List<Department>departmentsGetData(){
         return departmentService.getDepartmentDate();
+    }
+
+    @RequestMapping("add_judge")
+    @ResponseBody
+    public String addjudge(HttpServletRequest request){
+        return " ";
     }
 }
