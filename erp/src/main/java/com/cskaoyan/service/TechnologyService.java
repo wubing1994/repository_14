@@ -26,7 +26,7 @@ public interface TechnologyService {
 
     List<Technology> searchTechByName(String searchValue);
 
-    List<Technology> queryTechnologyRequList();
+    List<TechnologyRequirement> queryTechnologyRequList();
 
     int insertRequ(TechnologyRequirement technologyRequirement);
 
@@ -61,4 +61,8 @@ public interface TechnologyService {
     List<Process> searchProcessById(String searchValue);
 
     List<Process> searchProcessByName(String searchValue);
+
+    Technology queryTechnologyById(String technologyId);
+
+    TechnologyPlan queryTechnologyPlanById(String technologyPlanId);
 }

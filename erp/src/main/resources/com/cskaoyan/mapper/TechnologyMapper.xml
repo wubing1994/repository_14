@@ -44,6 +44,11 @@
         <!--<include refid="page"/>-->
     </select>
 
+    <select id="queryTechnologyById" resultMap="technologypagelist">
+        <include refid="baseColumns"/>
+        from technology where technology_id=#{id}
+    </select>
+
     <insert id="insertTechnology">
         insert into technology (technology_id,
                                 technology_name,
@@ -112,14 +117,22 @@
 
     <resultMap id="requResult" type="com.cskaoyan.bean.TechnologyRequirement">
         <result column="technology_requirement_id" property="technologyRequirementId"/>
-        <result column="technology_id" property="technologyName"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="technology_id" property="technologyId"/>
         <result column="requirement" property="requirement"/>
         <result column="add_time" property="addTime"/>
         <result column="revise_time" property="reviseTime"/>
     </resultMap>
     <select id="queryTechnologyRequList" resultMap="requResult">
-        <include refid="requbaseColumns"/>
-        from technology_requirement
+        select
+          requ.technology_requirement_id,
+          requ.technology_id,
+          requ.requirement,
+          requ.add_time,
+          requ.revise_time,
+          tech.technology_name
+		  from technology_requirement as requ left join technology as tech
+        on requ.technology_id = tech.technology_id
     </select>
 
 
@@ -129,7 +142,7 @@
                                            requirement,
                                            add_time,
                                            revise_time)value (#{techRequ.technologyRequirementId},
-                                                              #{techRequ.technologyName},
+                                                              #{techRequ.technologyId},
                                                               #{techRequ.requirement},
                                                               #{techRequ.addTime},
                                                               #{techRequ.reviseTime})
@@ -137,8 +150,8 @@
 
     <update id="updateRequ">
         update technology_requirement set
-        technology_id =             #{techRequ.technologyName},
-        requirement =                       #{techRequ.requirement},
+        technology_id =             #{techRequ.technologyId},
+        requirement =                #{techRequ.requirement},
         add_time =                  #{techRequ.addTime},
         revise_time =           #{techRequ.reviseTime}
         where technology_requirement_id =         #{techRequ.technologyRequirementId}
@@ -179,7 +192,8 @@
     </sql>
     <resultMap id="techPlanList" type="com.cskaoyan.bean.TechnologyPlan">
         <result column="technology_plan_id"             property="technologyPlanId"/>
-        <result column="technology_id"                  property="technologyName"/>
+        <result column="technology_id"                  property="technologyId"/>
+        <result column="technology_name"                property="technologyName"/>
         <result column="batch_amount"                   property="batchAmount"/>
         <result column="start_plan"                     property="startPlan"/>
         <result column="end_plan"                       property="endPlan"/>
@@ -188,8 +202,34 @@
         <result column="technology_plan_end"            property="technologyEndPlan"/>
     </resultMap>
     <select id="queryTechnologyPlanList" resultMap="techPlanList">
-      <include refid="techPlanbaseColumns"/>
-      from technology_plan
+      select
+          plan.technology_plan_id,
+          plan.technology_id,
+          tech.technology_name,
+          plan.batch_amount,
+          plan.start_plan,
+          plan.end_plan,
+          plan.commit_plan,
+          plan.technology_plan_start,
+          plan.technology_plan_end
+		from technology_plan as plan LEFT JOIN technology as tech
+		on plan.technology_id = tech.technology_id
+    </select>
+
+    <select id="queryTechnologyPlanById" resultMap="techPlanList">
+         select
+          plan.technology_plan_id,
+          plan.technology_id,
+          tech.technology_name,
+          plan.batch_amount,
+          plan.start_plan,
+          plan.end_plan,
+          plan.commit_plan,
+          plan.technology_plan_start,
+          plan.technology_plan_end
+		from technology_plan as plan LEFT JOIN technology as tech
+		on plan.technology_id = tech.technology_id
+		where plan.technology_plan_id =#{id}
     </select>
 
     <insert id="insertTechnologyPlan">
@@ -201,7 +241,7 @@
                                            commit_plan,
                                            technology_plan_start,
                                            technology_plan_end)value (#{techPlan.technologyPlanId},
-                                                                      #{techPlan.technologyName},
+                                                                      #{techPlan.technologyId},
                                                                       #{techPlan.batchAmount},
                                                                       #{techPlan.startPlan},
                                                                       #{techPlan.endPlan},
@@ -213,7 +253,7 @@
 
     <update id="updateTechnologyPlan">
         update technology_plan set
-        technology_id =             #{techPlan.technologyName},
+        technology_id =             #{techPlan.technologyId},
         batch_amount =               #{techPlan.batchAmount},
         start_plan =                #{techPlan.startPlan},
         end_plan =                  #{techPlan.endPlan},
