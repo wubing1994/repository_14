@@ -68,6 +68,7 @@
     <!--新增设备种类-->
     <insert id="insertDeviceType">
         insert into device_type (
+          device_type_id,
           device_type_name,
           device_type_model,
           device_type_spec,
@@ -76,13 +77,14 @@
           device_type_quantity,
           device_type_warranty)
         value (
+          #{deviceType.deviceTypeId},
           #{deviceType.deviceTypeName},
           #{deviceType.deviceTypeModel},
           #{deviceType.deviceTypeSpec},
           #{deviceType.deviceTypeSupplier},
           #{deviceType.deviceTypeProducer},
           #{deviceType.deviceTypeQuantity},
-          #{deviceType.deviceTypeWarranty} )
+          #{deviceType.deviceTypeWarranty})
     </insert>
 
     <!--更新设备种类-->
