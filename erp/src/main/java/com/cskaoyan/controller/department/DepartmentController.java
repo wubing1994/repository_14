@@ -1,6 +1,6 @@
 package com.cskaoyan.controller.department;
 
-import com.cskaoyan.bean.QueryVO;
+import com.cskaoyan.bean.VO.QueryVO;
 import com.cskaoyan.bean.department.Department;
 import com.cskaoyan.service.department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;

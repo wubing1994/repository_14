@@ -1,12 +1,16 @@
 package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.DeviceType;
+import com.cskaoyan.bean.VO.ResponseVo;
 import com.cskaoyan.service.DeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -45,14 +49,24 @@ public class DeviceTypeController {
     //添加设备种类
     @RequestMapping("deviceType/insert")
     @ResponseBody
-    public String insertDeviceType(DeviceType deviceType) {
+    public ResponseVo insertDeviceType(@Valid DeviceType deviceType, BindingResult bindingResult){
+        ResponseVo responseVo = new ResponseVo();
+        /*if (bindingResult.hasErrors()){
+            responseVo.setErrorNo(1);
+            FieldError fieldError = bindingResult.getFieldError();
+            //校验通过的成员变量名
+            String field = fieldError.getField();
+            String defaultMessage = fieldError.getDefaultMessage();
+            responseVo.setMessage(defaultMessage);
+            return responseVo;
+        }*/
         int ret = deviceTypeService.insertDeviceType(deviceType);
-        if (ret == 1) {
-            return "200";
-        } else {
-            return "300";
-        }
+        responseVo.setStatus(200);
+        responseVo.setMsg("OK");
+        responseVo.setData(null);
+        return responseVo;
     }
+
 
     @RequestMapping("deviceType/edit_judge")
     @ResponseBody
@@ -67,9 +81,22 @@ public class DeviceTypeController {
     //更新设备种类
     @RequestMapping("deviceType/update")
     @ResponseBody
-    public String updateDeviceType(DeviceType deviceType) {
+    public ResponseVo updateDeviceType(@Valid DeviceType deviceType, BindingResult bindingResult){
+        ResponseVo responseVo = new ResponseVo();
+        /*if (bindingResult.hasErrors()){
+            responseVo.setErrorNo(1);
+            FieldError fieldError = bindingResult.getFieldError();
+            //校验通过的成员变量名
+            String field = fieldError.getField();
+            String defaultMessage = fieldError.getDefaultMessage();
+            responseVo.setMessage(defaultMessage);
+            return responseVo;
+        }*/
         int ret = deviceTypeService.updateDeviceType(deviceType);
-        return "200";
+        responseVo.setStatus(200);
+        responseVo.setMsg("OK");
+        responseVo.setData(null);
+        return responseVo;
     }
 
     //
@@ -82,10 +109,22 @@ public class DeviceTypeController {
     /*删除选中的记录*/
     @RequestMapping("deviceType/delete_batch")
     @ResponseBody
-    public String delete(String[] ids) {
-
+    public ResponseVo deleteDeviceTypes(String[] ids){
+        ResponseVo responseVo = new ResponseVo();
+        /*if (bindingResult.hasErrors()){
+            responseVo.setErrorNo(1);
+            FieldError fieldError = bindingResult.getFieldError();
+            //校验通过的成员变量名
+            String field = fieldError.getField();
+            String defaultMessage = fieldError.getDefaultMessage();
+            responseVo.setMessage(defaultMessage);
+            return responseVo;
+        }*/
         int ret = deviceTypeService.deleteDeviceTypes(ids);
-        return "200";
+        responseVo.setStatus(200);
+        responseVo.setMsg("OK");
+        responseVo.setData(null);
+        return responseVo;
     }
 
     /*根据设备种类编号搜索*/

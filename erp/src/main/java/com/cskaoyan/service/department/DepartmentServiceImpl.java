@@ -1,6 +1,6 @@
 package com.cskaoyan.service.department;
 
-import com.cskaoyan.bean.QueryVO;
+import com.cskaoyan.bean.VO.QueryVO;
 import com.cskaoyan.bean.department.Department;
 import com.cskaoyan.bean.department.DepartmentExample;
 import com.cskaoyan.mapper.department.DepartmentMapper;
