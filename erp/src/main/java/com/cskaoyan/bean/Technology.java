@@ -15,6 +15,8 @@ public class Technology {
     private String technologyId;
     private String technologyName;
     private String vitalProcessPeriod;
+   /* public TechnologyPlan technologyPlan;
+    public TechnologyRequirement technologyRequirement;*/
 
     public Technology() {
     }
@@ -45,6 +47,21 @@ public class Technology {
                 ", vitalProcessPeriod='" + vitalProcessPeriod + '\'' +
                 '}';
     }
+    /* public TechnologyPlan getTechnologyPlan() {
+        return technologyPlan;
+    }
+
+    public void setTechnologyPlan(TechnologyPlan technologyPlan) {
+        this.technologyPlan = technologyPlan;
+    }
+
+    public TechnologyRequirement getTechnologyRequirement() {
+        return technologyRequirement;
+    }
+
+    public void setTechnologyRequirement(TechnologyRequirement technologyRequirement) {
+        this.technologyRequirement = technologyRequirement;
+    }*/
 
     public int getDoubleCapacity() {
         return doubleCapacity;

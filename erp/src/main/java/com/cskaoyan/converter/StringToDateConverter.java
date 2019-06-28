@@ -15,7 +15,7 @@ public class StringToDateConverter implements Converter<String, Date> {
 
         Date date = null;
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(s);
+            date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(s);
         } catch (ParseException e) {
             e.printStackTrace();
         }

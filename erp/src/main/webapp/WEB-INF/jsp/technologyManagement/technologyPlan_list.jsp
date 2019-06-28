@@ -26,10 +26,10 @@
             <th data-options="field:'commitPlan',width:140,align:'center',formatter:TAOTAO.formatDateTime">
 				计划提交时间
 			</th>
-            <th data-options="field:'technologyPlanStart',width:140,align:'center',formatter:TAOTAO.formatDateTime">
+            <th data-options="field:'technologyStartPlan',width:140,align:'center',formatter:TAOTAO.formatDateTime">
 				工艺计划开始时间
 			</th>
-            <th data-options="field:'technologyPlanEnd',width:140,align:'center',formatter:TAOTAO.formatDateTime">
+            <th data-options="field:'technologyEndPlan',width:140,align:'center',formatter:TAOTAO.formatDateTime">
 				工艺计划结束时间
 			</th>
         </tr>
@@ -155,9 +155,9 @@ function doSearch_technologyPlan(value,name){ //用户输入用户名,点击搜�
 					formatter:TAOTAO.formatDateTime},
 				{field : 'commitPlan', width : 130, title : '计划提交时间', align:'center',
 					formatter:TAOTAO.formatDateTime},
-				{field : 'technologyPlanStart', width : 130, title : '工艺计划开始时间', align:'center',
+				{field : 'technologyStartPlan', width : 130, title : '工艺计划开始时间', align:'center',
 					formatter:TAOTAO.formatDateTime},
-				{field : 'technologyPlanEnd', width : 130, title : '工艺计划结束时间', align:'center',
+				{field : 'technologyEndPlan', width : 130, title : '工艺计划结束时间', align:'center',
 					formatter:TAOTAO.formatDateTime},
 	        ] ],  
 	    });
@@ -178,9 +178,9 @@ function doSearch_technologyPlan(value,name){ //用户输入用户名,点击搜�
 					formatter:TAOTAO.formatDateTime},
 				{field : 'commitPlan', width : 130, title : '计划提交时间', align:'center',
 					formatter:TAOTAO.formatDateTime},
-				{field : 'technologyPlanStart', width : 130, title : '工艺计划开始时间', align:'center',
+				{field : 'technologyStartPlan', width : 130, title : '工艺计划开始时间', align:'center',
 					formatter:TAOTAO.formatDateTime},
-				{field : 'technologyPlanEnd', width : 130, title : '工艺计划结束时间', align:'center',
+				{field : 'technologyEndPlan', width : 130, title : '工艺计划结束时间', align:'center',
 					formatter:TAOTAO.formatDateTime},
 	        ] ],  
 	    });
