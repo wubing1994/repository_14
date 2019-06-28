@@ -1,6 +1,6 @@
-package com.cskaoyan.bean;
+package com.cskaoyan.bean.device;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class DeviceType {
 

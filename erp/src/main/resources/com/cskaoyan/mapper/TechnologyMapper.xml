@@ -3,6 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.mapper.TechnologyMapper">
 
+
+    <!--以下为工艺管理模块-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
     <sql id="baseColumns">
         select
           technology_id,
@@ -39,6 +44,11 @@
         <!--<include refid="page"/>-->
     </select>
 
+    <select id="queryTechnologyById" resultMap="technologypagelist">
+        <include refid="baseColumns"/>
+        from technology where technology_id=#{id}
+    </select>
+
     <insert id="insertTechnology">
         insert into technology (technology_id,
                                 technology_name,
@@ -72,7 +82,7 @@
 
         where technology_id =         #{tech.technologyId}
     </update>
-    
+
     <delete id="deleteTechnology">
         delete from technology where technology_id in
         <foreach collection="ids" item="id" separator="," open="(" close=")">
@@ -88,6 +98,247 @@
     <select id="searchTechByName" resultMap="technologypagelist">
         <include refid="baseColumns"/>
         from technology where technology_name=#{name}
+    </select>
+
+
+    <!--以下为工艺要求模块-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+
+    <sql id="requbaseColumns">
+        select
+          technology_requirement_id,
+          technology_id,
+          requirement,
+          add_time,
+          revise_time
+    </sql>
+
+    <resultMap id="requResult" type="com.cskaoyan.bean.TechnologyRequirement">
+        <result column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+    </resultMap>
+    <select id="queryTechnologyRequList" resultMap="requResult">
+        select
+          requ.technology_requirement_id,
+          requ.technology_id,
+          requ.requirement,
+          requ.add_time,
+          requ.revise_time,
+          tech.technology_name
+		  from technology_requirement as requ left join technology as tech
+        on requ.technology_id = tech.technology_id
+    </select>
+
+
+    <insert id="insertRequ">
+        insert into technology_requirement(technology_requirement_id,
+                                           technology_id,
+                                           requirement,
+                                           add_time,
+                                           revise_time)value (#{techRequ.technologyRequirementId},
+                                                              #{techRequ.technologyId},
+                                                              #{techRequ.requirement},
+                                                              #{techRequ.addTime},
+                                                              #{techRequ.reviseTime})
+    </insert>
+
+    <update id="updateRequ">
+        update technology_requirement set
+        technology_id =             #{techRequ.technologyId},
+        requirement =                #{techRequ.requirement},
+        add_time =                  #{techRequ.addTime},
+        revise_time =           #{techRequ.reviseTime}
+        where technology_requirement_id =         #{techRequ.technologyRequirementId}
+    </update>
+
+    <delete id="deleteTechnologyRequ">
+        delete from technology_requirement where technology_requirement_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="searchTechRequBytechRequId" resultMap="requResult">
+        <include refid="requbaseColumns"/>
+        from technology_requirement where technology_requirement_id=#{id}
+    </select>
+
+    <select id="searchTechRequBytechnologyName" resultMap="requResult">
+        <include refid="requbaseColumns"/>
+        from technology_requirement where technology_id=#{name}
+    </select>
+
+
+    <!--以下为工艺计划模块-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <sql id="techPlanbaseColumns">
+        select
+          technology_plan_id,
+          technology_id,
+          batch_amount,
+          start_plan,
+          end_plan,
+          commit_plan,
+          technology_plan_start,
+          technology_plan_end
+    </sql>
+    <resultMap id="techPlanList" type="com.cskaoyan.bean.TechnologyPlan">
+        <result column="technology_plan_id"             property="technologyPlanId"/>
+        <result column="technology_id"                  property="technologyId"/>
+        <result column="technology_name"                property="technologyName"/>
+        <result column="batch_amount"                   property="batchAmount"/>
+        <result column="start_plan"                     property="startPlan"/>
+        <result column="end_plan"                       property="endPlan"/>
+        <result column="commit_plan"                    property="commitPlan"/>
+        <result column="technology_plan_start"          property="technologyStartPlan"/>
+        <result column="technology_plan_end"            property="technologyEndPlan"/>
+    </resultMap>
+    <select id="queryTechnologyPlanList" resultMap="techPlanList">
+      select
+          plan.technology_plan_id,
+          plan.technology_id,
+          tech.technology_name,
+          plan.batch_amount,
+          plan.start_plan,
+          plan.end_plan,
+          plan.commit_plan,
+          plan.technology_plan_start,
+          plan.technology_plan_end
+		from technology_plan as plan LEFT JOIN technology as tech
+		on plan.technology_id = tech.technology_id
+    </select>
+
+    <select id="queryTechnologyPlanById" resultMap="techPlanList">
+         select
+          plan.technology_plan_id,
+          plan.technology_id,
+          tech.technology_name,
+          plan.batch_amount,
+          plan.start_plan,
+          plan.end_plan,
+          plan.commit_plan,
+          plan.technology_plan_start,
+          plan.technology_plan_end
+		from technology_plan as plan LEFT JOIN technology as tech
+		on plan.technology_id = tech.technology_id
+		where plan.technology_plan_id =#{id}
+    </select>
+
+    <insert id="insertTechnologyPlan">
+        insert into technology_plan(technology_plan_id,
+                                           technology_id,
+                                           batch_amount,
+                                           start_plan,
+                                           end_plan,
+                                           commit_plan,
+                                           technology_plan_start,
+                                           technology_plan_end)value (#{techPlan.technologyPlanId},
+                                                                      #{techPlan.technologyId},
+                                                                      #{techPlan.batchAmount},
+                                                                      #{techPlan.startPlan},
+                                                                      #{techPlan.endPlan},
+                                                                      #{techPlan.commitPlan},
+                                                                      #{techPlan.technologyStartPlan},
+                                                                      #{techPlan.technologyEndPlan}
+                                                                      )
+    </insert>
+
+    <update id="updateTechnologyPlan">
+        update technology_plan set
+        technology_id =             #{techPlan.technologyId},
+        batch_amount =               #{techPlan.batchAmount},
+        start_plan =                #{techPlan.startPlan},
+        end_plan =                  #{techPlan.endPlan},
+        commit_plan =               #{techPlan.commitPlan},
+        technology_plan_start =     #{techPlan.technologyStartPlan},
+        technology_plan_end =       #{techPlan.technologyEndPlan}
+        where technology_plan_id =   #{techPlan.technologyPlanId}
+    </update>
+
+    <delete id="deleteTechnologyPlan">
+        delete from technology_plan where technology_plan_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="searchTechPlanById" resultMap="techPlanList">
+        <include refid="techPlanbaseColumns"/>
+        from technology_plan where technology_plan_id=#{id}
+    </select>
+
+    <select id="searchTechPlanByName" resultMap="techPlanList">
+        <include refid="techPlanbaseColumns"/>
+        from technology_plan where technology_id=#{name}
+    </select>
+
+
+    <!--以下为工序管理模块-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+    <!--`````````````````````````````````````````````````````````````````````````````````-->
+
+    <sql id="processBaseColunm">
+        select
+          process_id,
+          technology_plan_id,
+          sequence,
+          quota
+    </sql>
+    <resultMap id="processList" type="com.cskaoyan.bean.Process">
+        <result column="process_id"             property="processId"/>
+        <result column="technology_plan_id"     property="technologyPlanId"/>
+        <result column="sequence"               property="sequence"/>
+        <result column="quota"                  property="quota"/>
+    </resultMap>
+    <select id="queryProcessList" resultMap="processList">
+        <include refid="processBaseColunm"/>
+        from process
+    </select>
+
+
+    <insert id="insertProcess">
+        insert into process         (process_id,
+                                    technology_plan_id,
+                                    sequence,
+                                    quota)value (#{pro.processId},
+                                                    #{pro.technologyPlanId},
+                                                    #{pro.sequence},
+                                                    #{pro.quota}
+                                                  )
+    </insert>
+
+    <update id="updateProcess">
+        update process set
+        technology_plan_id =      #{pro.technologyPlanId},
+        sequence =                #{pro.sequence},
+        quota =                  #{pro.quota}
+        where process_id =   #{pro.processId}
+    </update>
+
+    <delete id="deletePro">
+        delete from process where process_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="searchProcessById" resultMap="processList">
+        <include refid="processBaseColunm"/>
+        from process where process_id=#{id}
+    </select>
+
+    <select id="searchProcessByName" resultMap="processList">
+        <include refid="processBaseColunm"/>
+        from process where technology_plan_id=#{name}
     </select>
 
 </mapper>

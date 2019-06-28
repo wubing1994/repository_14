@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.device.DeviceFaultMapper">
+
+    <resultMap id="deviceFaultMap" type="com.cskaoyan.bean.device.DeviceFault">
+        <result column="device_fault_id" property="deviceFaultId"/>
+        <result column="device_id" property="deviceId"/>
+        <result column="device_name" property="deviceName"/>
+        <result column="device_fault_cause" property="deviceFaultCause"/>
+        <result column="device_fault_detail" property="deviceFaultDetail"/>
+        <result column="device_fault_date" property="deviceFaultDate"/>
+        <result column="device_fault_maintenance" property="deviceFaultMaintenance"/>
+    </resultMap>
+
+    <!--查询所有记录-->
+    <select id="queryAllDeviceFaults" resultMap="deviceFaultMap">
+        select
+          device_fault_id,
+          device_fault.device_id,
+          device_name,
+          device_fault_cause,
+          device_fault_detail,
+          device_fault_date,
+          device_fault_maintenance
+        from device_fault
+          left join device on device_fault.device_id = device.device_id
+        order by device_fault_id
+    </select>
+
+    <!--添加-->
+    <insert id="insertDeviceFault">
+        insert into device_fault(
+          device_fault_id,
+          device_id,
+          device_fault_cause,
+          device_fault_detail,
+          device_fault_date,
+          device_fault_maintenance
+        ) value (
+          #{deviceFault.deviceFaultId},
+          #{deviceFault.deviceId},
+          #{deviceFault.deviceFaultCause},
+          #{deviceFault.deviceFaultDetail},
+          #{deviceFault.deviceFaultDate},
+          #{deviceFault.deviceFaultMaintenance})
+    </insert>
+
+    <!--更新-->
+    <update id="updateDeviceFault">
+        update device_fault set
+          device_fault_id = #{deviceFault.deviceFaultId},
+          device_id = #{deviceFault.deviceId},
+          device_fault_cause = #{deviceFault.deviceFaultCause},
+          device_fault_detail = #{deviceFault.deviceFaultDetail},
+          device_fault_date = #{deviceFault.deviceFaultDate},
+          device_fault_maintenance = #{deviceFault.deviceFaultMaintenance}
+        where device_fault_id = #{deviceFault.deviceFaultId}
+    </update>
+
+    <!--删除-->
+    <delete id="deleteDeviceFaults">
+        delete from device_fault
+        where device_fault_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据id 更新设备故障细节-->
+    <update id="updateDeviceFaultDetailById">
+        update device_fault
+        set device_fault_detail = #{detail}
+        where device_fault_id = #{id}
+    </update>
+
+</mapper>

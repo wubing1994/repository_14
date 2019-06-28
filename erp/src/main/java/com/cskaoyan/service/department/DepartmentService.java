@@ -1,6 +1,6 @@
 package com.cskaoyan.service.department;
 
-import com.cskaoyan.bean.QueryVO;
+import com.cskaoyan.bean.VO.QueryVO;
 import com.cskaoyan.bean.department.Department;
 
 import java.util.List;
