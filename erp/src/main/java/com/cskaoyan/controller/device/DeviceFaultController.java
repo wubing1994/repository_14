@@ -6,6 +6,7 @@ import com.cskaoyan.service.device.DeviceFaultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -82,7 +83,7 @@ public class DeviceFaultController {
     }
 
     //更新
-    @RequestMapping("deviceFault/update")
+    @RequestMapping("deviceFault/update*")
     @ResponseBody
     public ResponseVo updateDeviceFault(@Valid DeviceFault deviceFault, BindingResult bindingResult) {
         ResponseVo responseVo = new ResponseVo();
@@ -115,6 +116,13 @@ public class DeviceFaultController {
         return responseVo;
     }
 
+    /*根据id获取记录*/
+    @RequestMapping("deviceFault/get/{id}")
+    @ResponseBody
+    public DeviceFault queryDeviceFaultById(@PathVariable("id") String id) {
+        return deviceFaultService.queryDeviceFaultById(id);
+    }
+
     /*更新故障描述*/
     @RequestMapping("deviceFault/update_device_fault_detail")
     @ResponseBody
@@ -122,7 +130,6 @@ public class DeviceFaultController {
         ResponseVo responseVo = new ResponseVo();
 
         int ret = deviceFaultService.updateDeviceFaultDetailById(deviceFaultId, deviceFaultDetail);
-
         responseVo.setStatus(200);
         responseVo.setMsg("OK");
         responseVo.setData(null);

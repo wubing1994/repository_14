@@ -1,4 +1,4 @@
-package com.cskaoyan.bean.Employee;
+package com.cskaoyan.bean.employee;
 
 import java.util.Date;
 
