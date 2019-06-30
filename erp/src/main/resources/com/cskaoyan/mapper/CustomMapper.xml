@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.CustomMapper">
+
+    <sql id="baseColumns">
+        select
+         custom_id,
+          custom_name,
+          full_name,
+       address,
+          fax,
+         email,
+         owner_name,
+       owner_tel,
+       status,
+       note
+    </sql>
+
+    <sql id="page">
+        limit ${rows} offset (${page} - 1) * ${rows}
+    </sql>
+
+    <resultMap id="customMap" type="com.cskaoyan.bean.Custom">
+        <result column=" custom_id"         property="customId"/>
+        <result column="custom_name"       property="customName"/>
+        <result column="full_name"      property="customFullName"/>
+        <result column="address"       property="customAddress"/>
+        <result column="fax"   property="customFax"/>
+        <result column="email"   property="customEmail"/>
+        <result column="owner_name"   property="customOwnerName"/>
+        <result column="owner_tel"   property="customOwenerTel"/>
+        <result column="status"   property="customStatus"/>
+        <result column="note"   property="customNote"/>
+    </resultMap>
+
+    <!--查询每页的设备种类数-->
+    <select id="queryCustom" resultMap="customMap">
+        <include refid="baseColumns"/>
+        from device_type
+        <include refid="page"/>
+    </select>
+
+    <!--查询所有设备种类信息-->
+    <select id="queryAllCustom" resultMap="customMap">
+        <include refid="baseColumns"/>
+        from device_type
+    </select>
+
+    <!--根据id查询设备种类-->
+    <select id="queryCustomById" resultMap="customMap">
+        <include refid="baseColumns"/>
+        from device_type
+        <where>
+            <if test="custom_id!= null">
+                device_type_id like "%"#{id}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--根据名称模糊查询-->
+    <select id="queryCustomByName" resultMap="customMap">
+        <include refid="baseColumns"/>
+        from device_type
+        <where>
+            <if test="custom_name != null">
+                device_type_name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--新增设备种类-->
+    <insert id="insertCustom">
+        insert into device_type (
+          custom_id,
+          custom_name,
+          full_name,
+       address,
+          fax,
+         email,
+         owner_name,
+       owner_tel,
+       status,
+       note)
+        value (
+          #{custom.customId},
+          #{custom.customName},
+          #{custom.customFullName},
+          #{custom.customAddress},
+          #{custom.customFax},
+          #{custom.customEmail},
+          #{custom.customOwnerName},
+          #{custom.customOwnerTel},
+          #{custom.customStatus},
+          #{custom.customNote})
+    </insert>
+
+    <!--更新设备种类-->
+    <update id="updateCustom">
+        update custom set
+
+          custom_name=#{custom.customName},
+          full_name= #{custom.customFullName},
+       address= #{custom.customAddress},
+          fax=  #{custom.customFax},
+         email=  #{custom.customEmail},
+         owner_name= #{custom.customOwnerName},
+       owner_tel= #{custom.customOwnerTel},
+       status=   #{custom.customStatus},
+       note= #{custom.customNote}
+        where  custom_id = #{deviceType.deviceTypeId}
+    </update>
+
+    <!--批量删除-->
+    <delete id="deleteCustom">
+        delete from custom
+        where custom_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
