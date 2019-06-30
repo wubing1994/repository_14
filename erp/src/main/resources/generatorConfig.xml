@@ -97,7 +97,7 @@
                        selectByExampleQueryId="false"
                        domainObjectName="Department"
                > </table>-->
-                <table tableName="manufacture" domainObjectName="Manufacture"/>
+                <table tableName="employee" domainObjectName="Employee"/>
 
 
 
