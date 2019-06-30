@@ -1,7 +1,7 @@
 package com.cskaoyan.service.employee;
 
+import com.cskaoyan.bean.VO.QueryVO;
 import com.cskaoyan.bean.employee.Employee;
-import com.cskaoyan.bean.QueryVO;
 import com.cskaoyan.mapper.employee.EmployeeMapper;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
 

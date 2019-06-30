@@ -1,7 +1,8 @@
 package com.cskaoyan.service.employee;
 
+import com.cskaoyan.bean.VO.QueryVO;
 import com.cskaoyan.bean.employee.Employee;
-import com.cskaoyan.bean.QueryVO;
+import com.cskaoyan.bean.VO.QueryVO;
 
 import java.util.List;
 

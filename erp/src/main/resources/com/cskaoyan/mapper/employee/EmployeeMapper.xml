@@ -15,57 +15,130 @@
     <result column="join_date" property="joinDate"/>
     <result column="status" property="status"/>
     <result column="education" property="education"/>
-    <result column="degree" property="education"/>
+    <result column="degree" property="degree"/>
     <result column="major" property="major"/>
     <result column="graduate_school" property="graduateSchool"/>
     <result column="education_form" property="educationForm"/>
     <result column="department_id" property="departmentId"/>
-    <association property="department" javaType="department">
+    <association property="department" javaType="com.cskaoyan.bean.department.Department">
       <result column="UID" property="departmentId"/>
-      <result column="department_Name" property="departmentName"/>
+      <result column="department_name" property="departmentName"/>
       <result column="note" property="note"/>
     </association>
   </resultMap>
 
   <select id="selectByDepartment" resultMap="employeeMapLeft">
-    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
-    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_id
-    as UID,u.department_Name,u.note
-    from employee d left join department u
-    on d.department_id=u.department_id
-    where u.department_Name like#{department}
+    select
+      d.emp_id,
+      d.emp_name,
+      d.sex,
+      d.id_code,
+      d.birthday,
+      d.join_date,
+      d.status,
+      d.education,
+      d.degree,
+      d.major,
+      d.graduate_school,
+      d.education_form,
+      d.department_id,
+      u.department_id as UID,
+      u.department_name,
+      u.note
+    from employee d
+      left join department u on d.department_id = u.department_id
+    where u.department_name like %#{department}%
   </select>
 
   <select id="queryById" resultMap="employeeMapLeft">
-    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
-    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
-    as UID,u.department_Name,u.note
-    from employee d left join department u
-    on d.department_id=u.dapartment_id
-    where d.emp_id=#{id}
+    select
+      d.emp_id,
+      d.emp_name,
+      d.sex,
+      d.id_code,
+      d.birthday,
+      d.join_date,
+      d.status,
+      d.education,
+      d.degree,
+      d.major,
+      d.graduate_school,
+      d.education_form,
+      d.department_id,
+      u.department_Id as UID,
+      u.department_name,
+      u.note
+    from employee d
+      left join department u on d.department_id = u.dapartment_id
+    where d.emp_id = #{id}
   </select>
 
   <select id="queryByName" resultMap="employeeMapLeft">
-    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
-    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
-    as UID,u.department_Name,u.note from employee d left join department u
-    on d.department_id=u.dapartment_id
-    where d.emp_name like #{name}
+   select
+      d.emp_id,
+      d.emp_name,
+      d.sex,
+      d.id_code,
+      d.birthday,
+      d.join_date,
+      d.status,
+      d.education,
+      d.degree,
+      d.major,
+      d.graduate_school,
+      d.education_form,
+      d.department_id,
+      u.department_Id as UID,
+      u.department_name,
+      u.note
+    from employee d
+      left join department u on d.department_id=u.dapartment_id
+    where d.emp_name like %#{name}%
   </select>
 
   <select id="selectEmployees" resultMap="employeeMapLeft">
-    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
-    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
-    as UID,u.department_Name,u.note from employee d left join department u
-    on d.department_id=u.dapartment_id
+    select
+      d.emp_id,
+      d.emp_name,
+      d.sex,
+      d.id_code,
+      d.birthday,
+      d.join_date,
+      d.status,
+      d.education,
+      d.degree,
+      d.major,
+      d.graduate_school,
+      d.education_form,
+      d.department_id,
+      u.department_Id as UID,
+      u.department_name,
+      u.note
+    from employee d
+      left join department u on d.department_id=u.dapartment_id
   </select>
 
   <select id="selectById" resultMap="employeeMapLeft">
-    select d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
-    d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_Id
-    as UID,u.department_Name,u.note from employee d left join department u
-    on d.department_id=u.dapartment_id
-    where d.emp_id=#{id}
+    select
+      d.emp_id,
+      d.emp_name,
+      d.sex,
+      d.id_code,
+      d.birthday,
+      d.join_date,
+      d.status,
+      d.education,
+      d.degree,
+      d.major,
+      d.graduate_school,
+      d.education_form,
+      d.department_id,
+      u.department_Id as UID,
+      u.department_name,
+      u.note
+    from employee d
+      left join department u on d.department_id=u.dapartment_id
+    where d.emp_id = #{id}
   </select>
 
   <select id="countAll" resultType="int">
@@ -73,7 +146,7 @@
   </select>
 
   <select id="selectAll" resultType="employee">
-    select*from employee
+    select * from employee
   </select>
 
 

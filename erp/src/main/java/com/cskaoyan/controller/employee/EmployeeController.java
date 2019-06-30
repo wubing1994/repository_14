@@ -1,8 +1,8 @@
 package com.cskaoyan.controller.employee;
 
+import com.cskaoyan.bean.VO.QueryVO;
 import com.cskaoyan.bean.employee.Employee;
 import com.cskaoyan.bean.employee.Info;
-import com.cskaoyan.bean.QueryVO;
 import com.cskaoyan.service.employee.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class EmployeeController {
 
     @RequestMapping("list")
     @ResponseBody
-    public QueryVO findList(int page,int rows){
+    public QueryVO findList(int page, int rows){
         return employeeService.getEmployeeInPage(page,rows);
     }
 
@@ -137,15 +137,15 @@ public class EmployeeController {
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
     public QueryVO<Employee> searchByName(String searchValue,int page,int rows){
-        QueryVO<Employee> employeeQueryVO=employeeService.queryByName(page,rows,"%"+searchValue+"%");
+        QueryVO<Employee> employeeQueryVO = employeeService.queryByName(page,rows,"%"+searchValue+"%");
         return employeeQueryVO;
     }
 
-    @RequestMapping("search_employee_by_employeeName")
+    @RequestMapping("search_employee_by_employeeId")
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
     public QueryVO<Employee> searchById(String searchValue,int page,int rows){
-        QueryVO<Employee>employeeQueryVO=employeeService.queryById(page,rows,"%"+searchValue+"%");
+        QueryVO<Employee> employeeQueryVO = employeeService.queryById(page,rows,"%"+searchValue+"%");
         return employeeQueryVO;
     }
 

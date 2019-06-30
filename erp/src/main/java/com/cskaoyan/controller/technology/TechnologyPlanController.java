@@ -1,4 +1,4 @@
-package com.cskaoyan.controller;
+package com.cskaoyan.controller.technology;
 
 import com.cskaoyan.bean.Technology;
 import com.cskaoyan.bean.TechnologyPlan;
